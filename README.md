@@ -20,7 +20,7 @@ While working with the Pironman software, I identified and fixed an OLED font as
 
 The fix was reviewed and merged by SunFounder into their v2 branch and classified as a **C-level fix**.
 
-→ https://github.com/sunfounder/pironman5/pull/109
+→ https://github.com/sunfounder/pm_auto/pull/19
 
 ## What I work with
 
