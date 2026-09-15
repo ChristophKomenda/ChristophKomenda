@@ -8,7 +8,7 @@ I build digital experiences, interfaces and e-commerce solutions — with a stro
 
 ### SunFounder Pironman 5 / 5 Max
 
-**Home Assistant Integration**
+**Home Assistant Container Integration**
 
 Developed a local Home Assistant Container integration for the SunFounder Pironman 5 and Pironman 5 Max, providing monitoring, fan, RGB and OLED control through the local Pironman REST API.
 
