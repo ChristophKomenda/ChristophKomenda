@@ -36,6 +36,8 @@ The fix was reviewed and merged by SunFounder into their v2 branch and classifie
 - Home Assistant
 - Raspberry Pi
 - REST APIs
+- Docker
+- SQL
 - Open Source
 - Linux
 
