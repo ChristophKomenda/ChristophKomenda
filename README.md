@@ -30,12 +30,14 @@ The fix was reviewed and merged by SunFounder into their v2 branch and classifie
 - WordPress
 - Shopify
 - SEO & Web Analytics
+- Google Tag Manager
 - Figma & Adobe
-- HTML / CSS / JavaScript
+- HTML / CSS / JavaScript / React
 - Home Assistant
 - Raspberry Pi
 - REST APIs
 - Open Source
+- Linux
 
 ## Currently
 
