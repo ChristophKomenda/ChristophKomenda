@@ -4,6 +4,8 @@
 
 I build digital experiences, interfaces and e-commerce solutions — with a strong focus on UX, frontend and practical problem solving.
 
+🌐 **[Portfolio](https://christophkomenda.de)** · 📄 **[CV / Resume](https://christophkomenda.de/wp-content/uploads/2026/02/CV_Christoph_Komenda.pdf)**
+
 ## Open Source
 
 ### SunFounder Pironman 5 / 5 Max
