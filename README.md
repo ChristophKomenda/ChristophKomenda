@@ -66,6 +66,16 @@ Self-hosted on a Raspberry Pi infrastructure using Docker, Nginx and Cloudflare.
 
 → https://christophkomenda.de
 
+
+### 🍽️ Müllers Catering
+**Graphic Design · Photography · Social Media · Google Business Profile**
+
+Supporting a catering business with visual design, professional photography, social media content and Google Business Profile management.
+
+Focused on creating a consistent brand presence, engaging visual content and improving local online visibility.
+
+→ http://www.diemuellers-reuchelheim.de/
+
 ## Open Source
 
 ### SunFounder Pironman 5 / 5 Max
