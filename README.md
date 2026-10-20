@@ -18,8 +18,6 @@ A selection of client projects and digital experiences involving web design, UX/
 
 Redesigning and optimizing a Swiss DNA testing platform with a focus on user experience, product presentation, trust, conversion optimization and search visibility.
 
-**Status:** In development
-
 → https://dnatest.ch
 
 ### 🪵 SR Brennholzhandel
