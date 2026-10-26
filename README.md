@@ -12,20 +12,32 @@ From conversion-focused customer journeys to locally integrated smart-home softw
 
 ## Selected work
 
-### Pironman 5 / 5 Max — Home Assistant integration
+### Pironman 5 / 5 Max — Home Assistant Integration
 
-**Open source · Python · REST API · Home Assistant · Raspberry Pi**
+**Open Source · Python · Home Assistant · HACS · REST API · Docker · Raspberry Pi**
 
-Developed and maintain a local integration that brings SunFounder Pironman 5 / 5 Max monitoring and hardware controls into Home Assistant. It supports Home Assistant Container and other supported installation types, including deployments across devices on a local network.
+Designed, developed, and maintain an open-source Home Assistant integration that enables **native monitoring and hardware control for SunFounder Pironman 5 / 5 Max** devices.
 
-**Milestone:** Reviewed and accepted into the **HACS default repository**, making the integration discoverable directly in HACS without adding a custom repository.
+Built with **Home Assistant Container (Docker)** in mind, the integration bridges the gap between SunFounder's local hardware API and Home Assistant's native entities — without additional cloud services, MQTT, or a separate Home Assistant add-on.
 
-- Native Home Assistant entities for system monitoring and hardware control
-- Fan, RGB lighting and OLED display controls through the local REST API
-- Configurable connection settings and polling; no cloud or MQTT dependency
-- Documentation, compatibility guidance and community contribution workflows
+**🏆 Key milestone: Official HACS acceptance**
 
-[**View project & installation guide**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [HACS acceptance PR](https://github.com/hacs/default/pull/12242) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
+Successfully reviewed, approved, and merged into the **HACS default repository**, allowing users to discover, install, and update the integration directly through HACS.
+
+**Key engineering contributions**
+
+- **Native hardware integration:** CPU, GPU, memory, NVMe storage, network monitoring, and cooling status.
+- **Advanced device controls:** Fan profiles, RGB lighting effects, brightness, colors, and OLED display settings.
+- **Container-first architecture:** Works with Home Assistant Container and supports network-based communication across separate devices.
+- **Configurable REST API:** Adjustable host, port, and polling interval with fully local communication.
+- **Open-source quality:** GitHub Actions validation, versioned releases, contribution guidelines, security documentation, and structured issue templates.
+- **Hardware compatibility:** Published a model-specific compatibility matrix and reproducible testing plan, clearly distinguishing verified and untested hardware.
+
+**Verified environment:** Pironman 5 Max with Home Assistant Container. Pironman 5 is a target model; additional Pironman variants require hardware validation.
+
+**Impact:** Expanded Home Assistant integration options for Pironman users, especially those running Docker-based installations, and established a maintainable foundation for future hardware support and community contributions.
+
+[**Explore project & installation →**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [HACS acceptance](https://github.com/hacs/default/pull/12242) · [Hardware compatibility & testing](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/hardware-testing.md) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
 
 ### DNATest.ch — UX/UI & e-commerce relaunch
 
