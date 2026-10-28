@@ -6,7 +6,7 @@ I design and build intuitive digital experiences, connecting **user-centered des
 
 From conversion-focused customer journeys to locally integrated smart-home software, I enjoy turning complex requirements into clear, practical solutions.
 
-[**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/02/CV_Christoph_Komenda.pdf) · [**Explore my repositories**](https://github.com/ChristophKomenda?tab=repositories)
+[**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Explore my repositories**](https://github.com/ChristophKomenda?tab=repositories)
 
 ---
 
