@@ -39,46 +39,56 @@ Successfully reviewed, approved, and merged into the **HACS default repository**
 
 [**Explore project & installation →**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [HACS acceptance](https://github.com/hacs/default/pull/12242) · [Hardware compatibility & testing](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/hardware-testing.md) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
 
-### Weishaupt WTC — Heating Curve Reverse Engineering & Home Assistant Contributions
+### Weishaupt WTC — Protocol Reverse Engineering & Home Assistant Contributions
 
-**Open Source · Python · Reverse Engineering · CanApiJson · Home Assistant · Git · Automated Testing**
+**Open Source · Python · Reverse Engineering · CanApiJson · Home Assistant · Hardware Validation · Automated Testing**
 
-Investigated and extended the monitoring capabilities of **Weishaupt heating systems** by identifying previously undocumented CanApiJson register mappings and contributing new read-only sensors to two independent Home Assistant integrations.
+Researched and documented **12 HK1 heating-circuit configuration parameters** on a **Weishaupt WTC-GW 15-B**, including heating curve slope, parallel shift, temperature limits, frost protection, summer/winter switching and efficiency-related settings.
 
-Using my own **Weishaupt WTC-GW 15-B** installation as a hardware test environment, I combined protocol research, controlled measurements, Python development and automated regression testing to turn technical findings into reproducible open-source contributions.
+I turned read-only protocol measurements into documented register mappings and proposed Home Assistant sensors for **two independent integrations**. This work resulted in **9 pull requests across 3 upstream projects** (submitted for review, not yet merged at the time of writing).
 
-**🔬 Key milestone: Two hardware-validated heating curve registers**
+**🔬 Key technical findings**
 
-Successfully identified and validated the CanApiJson addresses for two important heating circuit parameters:
+- **12 HK1 parameters identified:** Two heating-curve registers and ten additional configuration settings, compared against the physical controller.
+- **Controlled hardware experiments:** Repeated measurements and A-B-A tests (including parallel shift and flow heating limit) helped distinguish confirmed settings from coincidental values.
+- **CanApiJson protocol discovery:** Three registers (`0x251B`, `0x251C`, `0x257B`) require a **GET request with VS=1** but return **VS=2**, calling for a per-register request-size override.
+- **Read-only by design:** No unverified write commands or automatic controller setting changes were introduced.
 
-| Parameter | Register | Scaling |
+**Selected register mappings**
+
+| HK1 setting | CanApiJson OX | Decoding |
 |---|---|---|
-| Heating curve slope (Heizkurvensteilheit HK1) | `0x254B` | 0.1 |
-| Heating curve parallel shift (Parallelverschiebung HK1) | `0x25AD` | 0.1 K |
+| Heating curve slope | `0x254B` | × 0.1 |
+| Heating curve parallel shift | `0x25AD` | signed × 0.1 K |
+| Minimum / maximum flow target | `0x251B` / `0x251C` | signed × 0.1 °C; request VS=1, reply VS=2 |
+| Summer/winter switching temperature | `0x257B` | signed × 0.1 °C; request VS=1, reply VS=2 |
+| Flow-temperature heating limit | `0x25C7` | × 0.1 °C |
+| Outdoor frost-protection threshold | `0x2554` | signed × 0.1 °C |
+| Heat-up optimization / building construction | `0x25A3` / `0x256E` | observed controller enum values |
+| Outdoor-temperature level raise | `0x2581` | signed × 0.1 °C; −20 °C corresponds to Off on the tested controller |
+| Domestic hot-water priority / room heating limit | `0x2537` / `0x257C` | observed controller enum values |
 
-**Key engineering contributions**
+**Engineering and validation**
 
-- **Protocol reverse engineering:** Investigated Weishaupt CanApiJson telegrams and existing WEM CAN register definitions to identify additional heating circuit parameters.
-- **Hardware-based validation:** Performed controlled A-B-A measurements against the physical heating controller to confirm register addressing and scaling.
-- **Home Assistant development:** Implemented read-only heating curve sensors using the existing integration architectures.
-- **Automated regression testing:** Added tests covering register definitions, scaling, signed value decoding and Home Assistant entity behavior.
-- **Cross-project collaboration:** Submitted three focused pull requests across two independent Home Assistant projects.
-- **Technical documentation:** Shared register mappings, raw protocol responses, validation results and implementation limitations with the open-source community.
-- **Safety-focused implementation:** Restricted contributions to read-only operations; no unverified heating controller write commands were introduced.
+- Implemented sensor definitions and request-size handling within existing Home Assistant integration architectures.
+- Added regression tests for register metadata, signed decoding, entity values and request/response-size handling.
+- Documented raw CanApiJson telegrams, controller comparisons, and limitations for reproducibility and review.
+- Validated registers on **one WTC-GW 15-B installation**; other device models and firmware remain unverified.
+- The register research was hardware-tested, but the new contributions have **not** all been live-tested in each destination integration.
 
-**Hardware validation:** Confirmed that parallel shift settings of `8.5 → 8.0 → 8.5 K` and `9.0 → 8.5 K` produced the corresponding CanApiJson raw values.
+**Upstream contributions — submitted for review**
 
-**Testing:** Successfully ran 64 automated tests for the standalone parallel shift contribution and 27 tests for the combined integration contribution.
+| Project | Pull requests | Contribution |
+|---|---|---|
+| [JS-DE-Tech/hacs-weishaupt-lan](https://github.com/JS-DE-Tech/hacs-weishaupt-lan) | [#9](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/9) · [#10](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/10) · [#11](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/11) · [#12](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/12) · [#13](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/13) | Heating curve, HK1 configuration, temperature limits and efficiency settings |
+| [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt) | [#21](https://github.com/kraiz/hassio-weishaupt/pull/21) · [#22](https://github.com/kraiz/hassio-weishaupt/pull/22) | Two heating-curve sensors, ten additional read-only HK1 sensors and API request-size support |
+| [BorgNumberOne/Weishaupt_CanApiJson](https://github.com/BorgNumberOne/Weishaupt_CanApiJson) | [#9](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/9) · [#10](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10) | Register documentation, protocol telegrams and hardware validation |
 
-**Open-source pull requests — submitted for review**
+**Status (November 2026):** All nine PRs were open when this section was written and are awaiting upstream review. No upstream merge is claimed. JS-DE-Tech PR #13 depends on #12.
 
-- [**PR #9 — HK1 Heating Curve Slope Sensor**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/9) — Adds a hardware-validated, read-only heating curve slope sensor to `JS-DE-Tech/hacs-weishaupt-lan`.
-- [**PR #10 — HK1 Heating Curve Parallel Shift Sensor**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/10) — Adds the newly identified `0x25AD` register, regression tests and technical documentation.
-- [**PR #21 — HK1 Heating Curve Sensors**](https://github.com/kraiz/hassio-weishaupt/pull/21) — Contributes both heating curve parameters to `kraiz/hassio-weishaupt`, including automated tests and README documentation.
+**Impact:** Previously undocumented HK1 controller parameters can now be reviewed for inclusion in community integrations, supporting more transparent, data-driven heating analysis while keeping the new functionality read-only.
 
-**Impact:** Made previously undocumented heating curve parameters available for potential integration into multiple Home Assistant projects, helping users monitor heating configuration and supporting more transparent, data-driven energy optimization.
-
-[**View PR #9**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/9) · [**View PR #10**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/10) · [**View PR #21**](https://github.com/kraiz/hassio-weishaupt/pull/21) · [CanApiJson research](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/issues/8)
+[**Browse my Weishaupt PRs →**](https://github.com/pulls?q=is%3Apr+author%3AChristophKomenda+weishaupt) · [Protocol documentation PR](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10)
 
 ### DNATest.ch — UX/UI & e-commerce relaunch
 
