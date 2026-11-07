@@ -39,6 +39,47 @@ Successfully reviewed, approved, and merged into the **HACS default repository**
 
 [**Explore project & installation →**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [HACS acceptance](https://github.com/hacs/default/pull/12242) · [Hardware compatibility & testing](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/hardware-testing.md) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
 
+### Weishaupt WTC — Heating Curve Reverse Engineering & Home Assistant Contributions
+
+**Open Source · Python · Reverse Engineering · CanApiJson · Home Assistant · Git · Automated Testing**
+
+Investigated and extended the monitoring capabilities of **Weishaupt heating systems** by identifying previously undocumented CanApiJson register mappings and contributing new read-only sensors to two independent Home Assistant integrations.
+
+Using my own **Weishaupt WTC-GW 15-B** installation as a hardware test environment, I combined protocol research, controlled measurements, Python development and automated regression testing to turn technical findings into reproducible open-source contributions.
+
+**🔬 Key milestone: Two hardware-validated heating curve registers**
+
+Successfully identified and validated the CanApiJson addresses for two important heating circuit parameters:
+
+| Parameter | Register | Scaling |
+|---|---|---|
+| Heating curve slope (Heizkurvensteilheit HK1) | `0x254B` | 0.1 |
+| Heating curve parallel shift (Parallelverschiebung HK1) | `0x25AD` | 0.1 K |
+
+**Key engineering contributions**
+
+- **Protocol reverse engineering:** Investigated Weishaupt CanApiJson telegrams and existing WEM CAN register definitions to identify additional heating circuit parameters.
+- **Hardware-based validation:** Performed controlled A-B-A measurements against the physical heating controller to confirm register addressing and scaling.
+- **Home Assistant development:** Implemented read-only heating curve sensors using the existing integration architectures.
+- **Automated regression testing:** Added tests covering register definitions, scaling, signed value decoding and Home Assistant entity behavior.
+- **Cross-project collaboration:** Submitted three focused pull requests across two independent Home Assistant projects.
+- **Technical documentation:** Shared register mappings, raw protocol responses, validation results and implementation limitations with the open-source community.
+- **Safety-focused implementation:** Restricted contributions to read-only operations; no unverified heating controller write commands were introduced.
+
+**Hardware validation:** Confirmed that parallel shift settings of `8.5 → 8.0 → 8.5 K` and `9.0 → 8.5 K` produced the corresponding CanApiJson raw values.
+
+**Testing:** Successfully ran 64 automated tests for the standalone parallel shift contribution and 27 tests for the combined integration contribution.
+
+**Open-source pull requests — submitted for review**
+
+- [**PR #9 — HK1 Heating Curve Slope Sensor**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/9) — Adds a hardware-validated, read-only heating curve slope sensor to `JS-DE-Tech/hacs-weishaupt-lan`.
+- [**PR #10 — HK1 Heating Curve Parallel Shift Sensor**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/10) — Adds the newly identified `0x25AD` register, regression tests and technical documentation.
+- [**PR #21 — HK1 Heating Curve Sensors**](https://github.com/kraiz/hassio-weishaupt/pull/21) — Contributes both heating curve parameters to `kraiz/hassio-weishaupt`, including automated tests and README documentation.
+
+**Impact:** Made previously undocumented heating curve parameters available for potential integration into multiple Home Assistant projects, helping users monitor heating configuration and supporting more transparent, data-driven energy optimization.
+
+[**View PR #9**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/9) · [**View PR #10**](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/10) · [**View PR #21**](https://github.com/kraiz/hassio-weishaupt/pull/21) · [CanApiJson research](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/issues/8)
+
 ### DNATest.ch — UX/UI & e-commerce relaunch
 
 **UX/UI · WordPress · WooCommerce · HTML · CSS · JavaScript · SEO · CRO**
@@ -84,18 +125,21 @@ These contributions complement my independent Home Assistant integration work an
 
 I combine qualitative UX thinking with implementation and analytics. Depending on the project, that means improving task flows and interface clarity, writing HTML/CSS/JavaScript, working with WordPress and WooCommerce, auditing Core Web Vitals, or using GA4 events to understand how people interact with a site.
 
+My open-source contributions follow a similar process: **investigate the problem, validate assumptions, implement a solution, test it and document the results.**
+
 **My focus:** meaningful outcomes, maintainable implementation and measurable impact. I prefer documented before-and-after evidence over unsupported performance or conversion claims.
 
 ## Skills & technologies
 
 | Area | Tools and capabilities |
-| --- | --- |
+|---|---|
 | **UX/UI & product design** | Figma, Adobe Creative Cloud, responsive design, user journeys, information architecture, prototyping |
 | **Frontend** | HTML, CSS, JavaScript, React, accessible and responsive interfaces |
 | **E-commerce & CMS** | WordPress, Elementor, WooCommerce, Shopify, Salesforce Commerce Cloud |
 | **SEO & optimization** | Technical SEO, Schema.org, Core Web Vitals, PageSpeed, conversion rate optimization (CRO) |
 | **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
-| **Infrastructure & open source** | Git, GitHub, Linux, Docker, Raspberry Pi, Home Assistant, REST APIs, Nginx, Cloudflare |
+| **Software development & testing** | Python, API integration, protocol analysis, automated regression testing, Git, GitHub |
+| **Infrastructure & open source** | Linux, Docker, Raspberry Pi, Home Assistant, REST APIs, Nginx, Cloudflare |
 
 ## Background
 
@@ -103,7 +147,7 @@ My professional background spans **UX/UI design, e-commerce, digital marketing a
 
 I enjoy working at the intersection of **design, technology and business outcomes** — both in client-facing projects and in open-source communities.
 
-[**See my experience and qualifications**](https://christophkomenda.de/wp-content/uploads/2026/02/CV_Christoph_Komenda.pdf)
+[**See my experience and qualifications**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf)
 
 ## More projects
 
@@ -122,6 +166,6 @@ I'm open to **UX/UI, frontend and e-commerce opportunities**, **selected freelan
 
 If you're building a product, improving a digital customer journey or working on a project where design and engineering meet, I'd be happy to connect.
 
-**[Explore my portfolio](https://christophkomenda.de)** · **[View my CV](https://christophkomenda.de/wp-content/uploads/2026/02/CV_Christoph_Komenda.pdf)** · **[Start a GitHub discussion](https://github.com/ChristophKomenda/pironman5-homeassistant-container/discussions)**
+**[Explore my portfolio](https://christophkomenda.de)** · **[View my CV](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf)** · **[Start a GitHub discussion](https://github.com/ChristophKomenda/pironman5-homeassistant-container/discussions)**
 
 *Design thoughtfully. Build practically. Improve continuously.*
