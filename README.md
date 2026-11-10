@@ -43,52 +43,43 @@ Successfully reviewed, approved, and merged into the **HACS default repository**
 
 **Open Source · Python · Reverse Engineering · CanApiJson · Home Assistant · Hardware Validation · Automated Testing**
 
-Researched and documented **12 HK1 heating-circuit configuration parameters** on a **Weishaupt WTC-GW 15-B**, including heating curve slope, parallel shift, temperature limits, frost protection, summer/winter switching and efficiency-related settings.
+Investigating the local **Weishaupt WEM / CanApiJson protocol** to make heating-system data more accessible in Home Assistant. On a **WTC-GW 15-B**, I researched **12 heating-circuit (HK1) settings** and **13 additional WTC sensor registers**, documenting observed behavior, decoding requirements and validation limits.
 
-I turned read-only protocol measurements into documented register mappings and proposed Home Assistant sensors for **two independent integrations**. This work resulted in **9 pull requests across 3 upstream projects** (submitted for review, not yet merged at the time of writing).
+The research has led to **10 pull requests across 3 upstream projects**, contributing read-only sensors, protocol handling, tests and documentation. **All 10 PRs remain open for upstream review as of November 10, 2026; these changes are not claimed as upstream releases.**
 
-**🔬 Key technical findings**
+**🔬 Key engineering contributions**
 
-- **12 HK1 parameters identified:** Two heating-curve registers and ten additional configuration settings, compared against the physical controller.
-- **Controlled hardware experiments:** Repeated measurements and A-B-A tests (including parallel shift and flow heating limit) helped distinguish confirmed settings from coincidental values.
-- **CanApiJson protocol discovery:** Three registers (`0x251B`, `0x251C`, `0x257B`) require a **GET request with VS=1** but return **VS=2**, calling for a per-register request-size override.
-- **Read-only by design:** No unverified write commands or automatic controller setting changes were introduced.
+- **HK1 heating-circuit monitoring:** Researched heating curve slope and parallel shift, minimum/maximum flow-temperature targets, summer/winter switching, frost protection and other configuration and efficiency-related parameters. A-B-A controller tests and live Home Assistant comparisons helped validate selected mappings.
+- **13 additional WTC sensors — [PR #14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14):** Proposed read-only monitoring for burner and blower behavior, internal pump electrical power, pump limits and other boiler-related values. All 13 register addresses returned numeric replies in individual hardware probes; some meanings and units remain provisional.
+- **Protocol edge cases:** Added support for separate GET request and response sizes, including HK1 registers that require **request VS=1 / response VS=2**, and a WTC pump-power register using **request VS=2 / response VS=1**.
+- **Coordinator and polling improvements:** Proposed integrating the 13 WTC sensors into the regular Home Assistant coordinator rather than a separate research-only polling path, with a configurable **60-second default scan interval**. Existing saved intervals require manual adjustment.
+- **Regression testing and reproducibility:** Added tests for register mapping, signed decoding, scaling, device assignment, stable entity IDs and polling behavior, plus read-only probe scripts and hardware observation logs. **100 local unit tests passed on the latest PR #14 head** (`30224e7`).
+- **Safety and compatibility:** Kept additions read-only, preserved Home Assistant entity IDs, avoided unverified controller write commands and documented what has — and has not — been validated.
 
-**Selected register mappings**
+**Selected hardware observations**
 
-| HK1 setting | CanApiJson OX | Decoding |
+| Area | Register(s) | Observed result |
 |---|---|---|
-| Heating curve slope | `0x254B` | × 0.1 |
-| Heating curve parallel shift | `0x25AD` | signed × 0.1 K |
-| Minimum / maximum flow target | `0x251B` / `0x251C` | signed × 0.1 °C; request VS=1, reply VS=2 |
-| Summer/winter switching temperature | `0x257B` | signed × 0.1 °C; request VS=1, reply VS=2 |
-| Flow-temperature heating limit | `0x25C7` | × 0.1 °C |
-| Outdoor frost-protection threshold | `0x2554` | signed × 0.1 °C |
-| Heat-up optimization / building construction | `0x25A3` / `0x256E` | observed controller enum values |
-| Outdoor-temperature level raise | `0x2581` | signed × 0.1 °C; −20 °C corresponds to Off on the tested controller |
-| Domestic hot-water priority / room heating limit | `0x2537` / `0x257C` | observed controller enum values |
+| HK1 heating curve slope / parallel shift | `0x254B` / `0x25AD` | Controller-matched readings with × 0.1 decoding |
+| HK1 minimum / maximum flow target | `0x251B` / `0x251C` | 15.0 °C / 80.0 °C; GET VS=1, reply VS=2 |
+| HK1 summer/winter switching | `0x257B` | 16.0 °C; GET VS=1, reply VS=2 |
+| WTC internal pump electrical power | `09/01/261B/02` | 11 W shown in Home Assistant and on the controller |
+| WTC heating-pump limits | `07/00/256B/02` / `07/00/256C/02` | 30% / 80%, matching the controller settings |
+| WTC burner target / blower control | `07/00/2542/00` / `07/00/257E/00` | Repeated, display-compared observations of 15.69% and ~10.4% respectively |
 
-**Engineering and validation**
+**Upstream contributions — awaiting review**
 
-- Implemented sensor definitions and request-size handling within existing Home Assistant integration architectures.
-- Added regression tests for register metadata, signed decoding, entity values and request/response-size handling.
-- Documented raw CanApiJson telegrams, controller comparisons, and limitations for reproducibility and review.
-- Validated registers on **one WTC-GW 15-B installation**; other device models and firmware remain unverified.
-- The register research was hardware-tested, but the new contributions have **not** all been live-tested in each destination integration.
-
-**Upstream contributions — submitted for review**
-
-| Project | Pull requests | Contribution |
+| Project | Pull requests | Scope |
 |---|---|---|
-| [JS-DE-Tech/hacs-weishaupt-lan](https://github.com/JS-DE-Tech/hacs-weishaupt-lan) | [#9](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/9) · [#10](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/10) · [#11](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/11) · [#12](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/12) · [#13](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/13) | Heating curve, HK1 configuration, temperature limits and efficiency settings |
-| [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt) | [#21](https://github.com/kraiz/hassio-weishaupt/pull/21) · [#22](https://github.com/kraiz/hassio-weishaupt/pull/22) | Two heating-curve sensors, ten additional read-only HK1 sensors and API request-size support |
-| [BorgNumberOne/Weishaupt_CanApiJson](https://github.com/BorgNumberOne/Weishaupt_CanApiJson) | [#9](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/9) · [#10](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10) | Register documentation, protocol telegrams and hardware validation |
+| [JS-DE-Tech/hacs-weishaupt-lan](https://github.com/JS-DE-Tech/hacs-weishaupt-lan) | [#9](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/9) · [#10](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/10) · [#11](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/11) · [#12](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/12) · [#13](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/13) · **[#14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14)** | HK1 sensors, WTC sensor expansion, request-size handling and regular polling |
+| [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt) | [#21](https://github.com/kraiz/hassio-weishaupt/pull/21) · [#22](https://github.com/kraiz/hassio-weishaupt/pull/22) | Heating-curve sensors and 10 further read-only HK1 settings |
+| [BorgNumberOne/Weishaupt_CanApiJson](https://github.com/BorgNumberOne/Weishaupt_CanApiJson) | [#9](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/9) · [#10](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10) | Protocol register documentation and controller-based evidence |
 
-**Status (November 2026):** All nine PRs were open when this section was written and are awaiting upstream review. No upstream merge is claimed. JS-DE-Tech PR #13 depends on #12.
+**Validation status (November 10, 2026):** Hardware observations come from **one WTC-GW 15-B installation**. All 13 new WTC registers responded to standalone read-only probes, but not every physical meaning, enum or scale is fully controller-verified. Earlier polling runs experienced partial failed read batches and intermittent unavailable states; **long-duration stability with all 13 registers in regular 60-second polling remains unproven**. Compatibility with other models and firmware also remains unverified. PR #14 overlaps earlier HK1 changes in #9–#13 and may require rebasing after upstream review.
 
-**Impact:** Previously undocumented HK1 controller parameters can now be reviewed for inclusion in community integrations, supporting more transparent, data-driven heating analysis while keeping the new functionality read-only.
+**Impact:** Turning undocumented controller behavior into reviewable, reproducible community contributions — creating a stronger foundation for transparent heating monitoring and data-driven optimization without changing heating settings.
 
-[**Browse my Weishaupt PRs →**](https://github.com/pulls?q=is%3Apr+author%3AChristophKomenda+weishaupt) · [Protocol documentation PR](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10)
+[**Browse my Weishaupt pull requests →**](https://github.com/pulls?q=is%3Apr+author%3AChristophKomenda+weishaupt) · [WTC sensor expansion (PR #14)](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14) · [Hardware observation log](https://github.com/ChristophKomenda/hacs-weishaupt-lan/blob/feat/wtc-13-candidates-sammelpr/docs/wtc-gw15b-canapijson-observations-2026-11-10.md)
 
 ### DNATest.ch — UX/UI & e-commerce relaunch
 
