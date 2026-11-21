@@ -1,12 +1,11 @@
-[ChristophKomenda](https://github.com/ChristophKomenda/ChristophKomenda)/README.md      &#x20;
 
 # Hi, I'm Christoph Komenda
 
-**UX/UI Designer · Frontend Developer · E-Commerce & Open Source**
+**UX/UI Designer · Frontend Developer · E-Commerce & Open Source Contributor**
 
-I design and build intuitive digital experiences, connecting **user-centered design, frontend engineering, e-commerce and measurable optimization**.
+I design and build intuitive digital experiences where **user-centered design, frontend engineering and measurable outcomes** meet.
 
-From conversion-focused customer journeys to locally integrated smart-home software, I enjoy turning complex requirements into clear, practical solutions.
+My work spans **conversion-focused e-commerce experiences** and **hardware-validated open-source integrations** — turning complex requirements into clear, practical solutions.
 
 [**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Explore my repositories**](https://github.com/ChristophKomenda?tab=repositories)
 
@@ -47,16 +46,17 @@ Successfully reviewed, approved, and merged into the **HACS default repository**
 
 Researching and extending the local **Weishaupt WEM / CanApiJson protocol** to make heating-system data more accessible, transparent and useful for monitoring and energy-efficiency analysis.
 
-Using a real **Weishaupt WTC-GW 15-B**, I investigated and hardware-validated 12 heating-circuit (HK1) settings and explored 13 additional boiler-related sensor registers.
+Using a real **Weishaupt WTC-GW 15-B**, I investigated and hardware-validated 12 heating-circuit (HK1) settings and explored additional boiler-related sensor registers.
 
-**🏆 Key milestone: Two upstream pull requests merged**
+**🏆 Key milestone: Three upstream pull requests merged — 24 read-only sensors**
 
-On November 15, 2026, two contributions were reviewed and merged into the official [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt) repository:
+Three contributions have been reviewed and merged into the upstream [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt) repository, most recently on November 21, 2026:
 
 - [**PR #21 — HK1 Heating Curve Monitoring**](https://github.com/kraiz/hassio-weishaupt/pull/21) — Added read-only sensors for heating curve slope and parallel shift.
 - [**PR #22 — 10 Additional HK1 Settings**](https://github.com/kraiz/hassio-weishaupt/pull/22) — Added hardware-validated heating circuit configuration sensors, protocol improvements, regression tests and documentation.
+- [**PR #24 — 12 WTC Boiler & Pump Sensors**](https://github.com/kraiz/hassio-weishaupt/pull/24) — Added read-only burner, blower and pump diagnostics with automated tests, documented limitations and backward-compatible integration.
 
-**Result:** 12 additional HK1 sensors accepted into the upstream `main` branch. These changes are not yet claimed as part of a published release.
+**Result:** 24 additional read-only sensors merged upstream (12 HK1 + 12 WTC), expanding heating-system visibility while preserving existing entities and avoiding controller write operations.
 
 **🔬 Key engineering contributions**
 
@@ -65,35 +65,38 @@ On November 15, 2026, two contributions were reviewed and merged into the offici
 - **Protocol compatibility:** Implemented independent request and response value sizes for selected registers while preserving existing sensor behavior.
 - **Regression testing:** Added automated tests covering register addresses, scaling, signed decoding, response validation and backward compatibility.
 - **Hardware validation:** Used repeated read-only probes, physical controller comparisons and controlled A-B-A measurements.
-- **Boiler sensor expansion:** Proposed 13 additional WTC sensors with regular 60-second polling in [JS-DE-Tech PR #14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14). Further long-term stability and register validation remain outstanding.
+- **Boiler sensor expansion:** Added 12 WTC sensors upstream in [PR #24](https://github.com/kraiz/hassio-weishaupt/pull/24), covering burner modulation, blower operation, pump performance and diagnostic parameters.
+- **Additional protocol research:** Proposed 13 WTC sensor candidates with regular 60-second polling in [JS-DE-Tech PR #14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14).
 - **Safety-first implementation:** Preserved entity identifiers, avoided unverified controller write operations and documented known hardware compatibility limitations.
 
 **Selected hardware observations**
 
-| Parameter                      | Register            | Validated observation                         |
-| ------------------------------ | ------------------- | --------------------------------------------- |
-| Heating curve slope            | `0x254B`            | Controller-matched values using × 0.1 scaling |
-| Heating curve parallel shift   | `0x25AD`            | Controller-matched values using × 0.1 scaling |
-| Minimum / maximum flow target  | `0x251B` / `0x251C` | 15.0 °C / 80.0 °C                             |
-| Summer/winter switching        | `0x257B`            | 16.0 °C                                       |
-| Internal pump electrical power | `0x261B`            | 11 W matched controller display               |
-| Heating pump output limits     | `0x256B` / `0x256C` | 30% / 80%                                     |
+| Parameter | Register | Validated observation |
+| --- | --- | --- |
+| Heating curve slope | `0x254B` | Controller-matched values using × 0.1 scaling |
+| Heating curve parallel shift | `0x25AD` | Controller-matched values using × 0.1 scaling |
+| Minimum / maximum flow target | `0x251B` / `0x251C` | 15.0 °C / 80.0 °C |
+| Summer/winter switching | `0x257B` | 16.0 °C |
+| Internal pump electrical power | `0x261B` | 11 W matched controller display |
+| Heating pump output limits | `0x256B` / `0x256C` | 30% / 80% |
+| Burner target output | `0x2542` | Controller-matched percentage |
+| Blower control signal | `0x257E` | Controller-matched percentage |
 
-**Upstream contribution status — November 15, 2026**
+**Upstream contribution status — November 21, 2026**
 
-| Project                                                                                     | Status       | Contributions                                                                                                                            |
-| ------------------------------------------------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt)                         | **2 merged** | [#21](https://github.com/kraiz/hassio-weishaupt/pull/21), [#22](https://github.com/kraiz/hassio-weishaupt/pull/22)                       |
-| [JS-DE-Tech/hacs-weishaupt-lan](https://github.com/JS-DE-Tech/hacs-weishaupt-lan)           | **6 open**   | [#9–#14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pulls?q=is%3Apr+author%3AChristophKomenda)                                     |
-| [BorgNumberOne/Weishaupt_CanApiJson](https://github.com/BorgNumberOne/Weishaupt_CanApiJson) | **2 open**   | [#9](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/9), [#10](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10) |
+| Project | Status | Contributions |
+| --- | --- | --- |
+| [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt) | **3 merged** | [#21](https://github.com/kraiz/hassio-weishaupt/pull/21), [#22](https://github.com/kraiz/hassio-weishaupt/pull/22), [#24](https://github.com/kraiz/hassio-weishaupt/pull/24) |
+| [JS-DE-Tech/hacs-weishaupt-lan](https://github.com/JS-DE-Tech/hacs-weishaupt-lan) | **6 open** | [#9–#14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pulls?q=is%3Apr+author%3AChristophKomenda) |
+| [BorgNumberOne/Weishaupt_CanApiJson](https://github.com/BorgNumberOne/Weishaupt_CanApiJson) | **2 open** | [#9](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/9), [#10](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10) |
 
-**Validation scope:** Research findings are based on one WTC-GW 15-B installation. Additional device models, firmware versions and some provisional WTC register interpretations require further validation. Long-term stability of all 13 proposed WTC sensors under regular polling has not yet been established.
+**Validation scope:** Research findings are based on one WTC-GW 15-B installation. Additional device models, firmware versions and provisional register interpretations require further validation. Long-term polling stability and live integration testing of the newly merged WTC sensors remain outstanding.
 
 **Impact:** Transforming undocumented heating-controller behavior into tested, documented and upstream-accepted open-source functionality that other Home Assistant users and developers can build upon.
 
 [**Merged upstream contributions →**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) · [WTC sensor expansion](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14) · [Hardware research](https://github.com/ChristophKomenda/hacs-weishaupt-lan/blob/feat/wtc-13-candidates-sammelpr/docs/wtc-gw15b-canapijson-observations-2026-11-10.md)
 
-### DNATest.ch — UX/UI & e-commerce relaunch
+### DNATest.ch — UX/UI & E-Commerce Relaunch
 
 **UX/UI · WordPress · WooCommerce · HTML · CSS · JavaScript · SEO · CRO**
 
@@ -104,11 +107,11 @@ Redesigned and optimized a Swiss DNA-testing e-commerce experience, focusing on 
 - Implemented structured data and technical SEO enhancements
 - Focused on page performance, usability and conversion-oriented journeys
 
-[**Explore DNATest.ch**](https://dnatest.ch)
+[**Explore DNATest.ch →**](https://dnatest.ch)
 
-### SR Brennholzhandel — Local business website optimization
+### SR Brennholzhandel — Local Business Website Optimization
 
-**Web design · WordPress · Frontend · Local SEO · GA4 · CRO**
+**Web Design · WordPress · Frontend · Local SEO · GA4 · CRO**
 
 Built and optimized a regional firewood supplier's digital presence to make products, delivery details and contact options easier to understand and act on.
 
@@ -117,22 +120,33 @@ Built and optimized a regional firewood supplier's digital presence to make prod
 - Implemented structured data and analytics event tracking
 - Worked on frontend performance and technical SEO
 
-[**Visit SR Brennholzhandel**](https://sr-brennholz.de)
+[**Visit SR Brennholzhandel →**](https://sr-brennholz.de)
 
-### SunFounder — Upstream contributions
+### SunFounder — Upstream Contributions
 
-**Open-source collaboration · Raspberry Pi · Linux · Compatibility**
+**Open Source · Raspberry Pi · Linux · Hardware Integration · Home Assistant · IR / LIRC**
 
-Contributed fixes and platform compatibility updates to SunFounder's upstream projects:
+Contributing hardware-focused improvements to SunFounder's ecosystem, connecting Linux-level functionality with practical smart-home integrations.
 
-- [OLED / SSD1306 font asset path fix](https://github.com/sunfounder/pm_auto/pull/19) — corrected an asset path issue in the upstream driver
-- [Debian Trixie compatibility contribution](https://github.com/sunfounder/pironman5/pull/109) — contributed tested platform compatibility information
+**Selected upstream contributions**
 
-These contributions complement my independent Home Assistant integration work and reflect a focus on maintainable, useful improvements.
+- [**Pironman 5 Max IR Receiver — PR #26 (open)**](https://github.com/sunfounder/home-assistant-addon/pull/26) — Developed a standalone infrared receiver add-on and native Home Assistant integration, enabling IR signals to be captured through the HAIR Sniffer.
+- [**OLED / SSD1306 Font Asset Fix**](https://github.com/sunfounder/pm_auto/pull/19) — Corrected an asset path issue in the upstream driver.
+- [**Debian Trixie Compatibility**](https://github.com/sunfounder/pironman5/pull/109) — Contributed tested platform compatibility information.
+
+**Key technical milestone:** Successfully demonstrated an end-to-end IR receiving pipeline on real Pironman 5 Max hardware using GPIO13, LIRC, Home Assistant Container and HAIR.
+
+The implementation captures infrared signals locally and forwards them through Home Assistant's event system to a native infrared receiver entity.
+
+**Current status:** The IR contribution remains experimental. Full Home Assistant OS validation and upstream acceptance are pending.
+
+**Impact:** Extending practical hardware capabilities through documented, reproducible open-source implementations.
+
+[**Explore SunFounder IR contribution →**](https://github.com/sunfounder/home-assistant-addon/pull/26)
 
 ---
 
-## How I work
+## How I Work
 
 **Understand the user → design the experience → build the solution → measure and improve.**
 
@@ -140,19 +154,19 @@ I combine qualitative UX thinking with implementation and analytics. Depending o
 
 My open-source contributions follow a similar process: **investigate the problem, validate assumptions, implement a solution, test it and document the results.**
 
-**My focus:** meaningful outcomes, maintainable implementation and measurable impact. I prefer documented before-and-after evidence over unsupported performance or conversion claims.
+**My focus:** Meaningful outcomes, maintainable implementation and measurable impact. I prefer documented before-and-after evidence over unsupported performance or conversion claims.
 
-## Skills & technologies
+## Skills & Technologies
 
-| Area                               | Tools and capabilities                                                                               |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **UX/UI & product design**         | Figma, Adobe Creative Cloud, responsive design, user journeys, information architecture, prototyping |
-| **Frontend**                       | HTML, CSS, JavaScript, React, accessible and responsive interfaces                                   |
-| **E-commerce & CMS**               | WordPress, Elementor, WooCommerce, Shopify, Salesforce Commerce Cloud                                |
-| **SEO & optimization**             | Technical SEO, Schema.org, Core Web Vitals, PageSpeed, conversion rate optimization (CRO)            |
-| **Analytics**                      | Google Analytics 4, Google Tag Manager, event tracking and performance analysis                      |
-| **Software development & testing** | Python, API integration, protocol analysis, automated regression testing, Git, GitHub                |
-| **Infrastructure & open source**   | Linux, Docker, Raspberry Pi, Home Assistant, REST APIs, Nginx, Cloudflare                            |
+| Area | Tools and capabilities |
+| --- | --- |
+| **UX/UI & Product Design** | Figma, Adobe Creative Cloud, responsive design, user journeys, information architecture, prototyping |
+| **Frontend** | HTML, CSS, JavaScript, React, accessible and responsive interfaces |
+| **E-Commerce & CMS** | WordPress, Elementor, WooCommerce, Shopify, Salesforce Commerce Cloud |
+| **SEO & Optimization** | Technical SEO, Schema.org, Core Web Vitals, PageSpeed, conversion rate optimization (CRO) |
+| **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
+| **Software Development & Testing** | Python, API integration, protocol analysis, automated regression testing, Git, GitHub |
+| **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, REST APIs, Nginx, Cloudflare |
 
 ## Background
 
@@ -160,9 +174,9 @@ My professional background spans **UX/UI design, e-commerce, digital marketing a
 
 I enjoy working at the intersection of **design, technology and business outcomes** — both in client-facing projects and in open-source communities.
 
-[**See my experience and qualifications**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf)
+[**See my experience and qualifications →**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf)
 
-## More projects
+## More Projects
 
 - [Sabine Hett](https://sabinehett.de) — local SEO, structured data and UX improvements
 - [Physio-Aktiv](https://physio-aktiv-ck.de) — digital presence for physiotherapy and health services
@@ -173,7 +187,7 @@ I enjoy working at the intersection of **design, technology and business outcome
 
 ---
 
-## Let's build something useful
+## Let's Build Something Useful
 
 I'm open to **UX/UI, frontend and e-commerce opportunities**, **selected freelance collaborations**, and **open-source contributions**.
 
