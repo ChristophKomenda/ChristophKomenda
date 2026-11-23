@@ -144,6 +144,26 @@ The implementation captures infrared signals locally and forwards them through H
 
 [**Explore SunFounder IR contribution →**](https://github.com/sunfounder/home-assistant-addon/pull/26)
 
+
+### Bitcoin Pi Node — Secure Self-Hosted Bitcoin Core
+
+**Open Source · Raspberry Pi 5 · Linux · Docker Compose · Bash · systemd · GitHub Actions**
+
+Built a lightweight deployment for a **pruned, validating Bitcoin Core node** on Raspberry Pi 5, with dedicated microSD, SSD or NVMe storage and straightforward command-line monitoring.
+
+**Key engineering contributions**
+
+- **Safer startup:** Optional systemd service verifies the mounted filesystem UUID before starting the container, reducing the risk of writing blockchain data to the system drive.
+- **Lean architecture:** Configurable pruning, persistent storage and Bitcoin P2P networking without exposing the RPC port on the host.
+- **Operational visibility:** CLI helpers for synchronization status, block height and peer connections.
+- **Maintainability:** Storage preflight checks, setup documentation and GitHub Actions covering Bash syntax, ShellCheck and Docker Compose validation.
+
+**Validation:** Tested on Raspberry Pi 5 with Debian 13 and Bitcoin Core 31.1. Full initial synchronization and controlled restart testing are not yet documented as complete.
+
+**Impact:** Making self-hosted Bitcoin infrastructure more approachable through reproducible deployment, safer storage handling and clear operational documentation.
+
+[**Explore Bitcoin Pi Node →**](https://github.com/ChristophKomenda/bitcoin-pi-node)
+
 ---
 
 ## How I Work
