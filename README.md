@@ -3,11 +3,13 @@
 
 **UX/UI Designer · Frontend Developer · E-Commerce & Open Source Contributor**
 
-I design and build intuitive digital experiences where **user-centered design, frontend engineering and measurable outcomes** meet.
+I design and build intuitive digital experiences where **user-centered design, frontend engineering and measurable outcomes** meet — from e-commerce journeys to locally integrated hardware.
 
 My work spans **conversion-focused e-commerce experiences** and **hardware-validated open-source integrations** — turning complex requirements into clear, practical solutions.
 
-[**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Explore my repositories**](https://github.com/ChristophKomenda?tab=repositories)
+[**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Open-source projects**](https://github.com/ChristophKomenda?tab=repositories)
+
+**Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core)
 
 ---
 
@@ -25,20 +27,25 @@ Built with **Home Assistant Container (Docker)** in mind, the integration bridge
 
 Successfully reviewed, approved, and merged into the **HACS default repository**, allowing users to discover, install, and update the integration directly through HACS.
 
+**Recent milestone: v1.5.0 — experimental native IR / HAIR receiver support**
+
+The integration now includes an optional native Home Assistant infrared receiver for the **Pironman 5 Max**, connected via a separately installed Linux/LIRC host bridge. It was tested with HAIR on real hardware; the IR capability remains experimental, receive-only and disabled by default. Version 1.4.0 also introduced expanded network and device diagnostics with capability-aware model detection, without claiming verified Pro Max support.
+
 **Key engineering contributions**
 
-- **Native hardware integration:** CPU, GPU, memory, NVMe storage, network monitoring, and cooling status.
+- **Native hardware integration:** CPU, GPU, memory, dynamically discovered NVMe / USB storage, network monitoring, and cooling status.
 - **Advanced device controls:** Fan profiles, RGB lighting effects, brightness, colors, and OLED display settings.
 - **Container-first architecture:** Works with Home Assistant Container and supports network-based communication across separate devices.
 - **Configurable REST API:** Adjustable host, port, and polling interval with fully local communication.
 - **Open-source quality:** GitHub Actions validation, versioned releases, contribution guidelines, security documentation, and structured issue templates.
-- **Hardware compatibility:** Published a model-specific compatibility matrix and reproducible testing plan, clearly distinguishing verified and untested hardware.
+- **Hardware compatibility:** Published a model-specific test matrix and capability-aware detection, distinguishing maintainer-tested Pironman 5 Max hardware from unverified models.
+- **Optional infrared reception:** Home Assistant `InfraredReceiverEntity`, HAIR integration and a documented host-side LIRC bridge for Pironman 5 Max.
 
 **Verified environment:** Pironman 5 Max with Home Assistant Container. Pironman 5 is a target model; additional Pironman variants require hardware validation.
 
 **Impact:** Expanded Home Assistant integration options for Pironman users, especially those running Docker-based installations, and established a maintainable foundation for future hardware support and community contributions.
 
-[**Explore project & installation →**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [HACS acceptance](https://github.com/hacs/default/pull/12242) · [Hardware compatibility & testing](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/hardware-testing.md) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
+[**Explore project & installation →**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [IR / HAIR documentation](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md) · [HACS acceptance](https://github.com/hacs/default/pull/12242) · [Hardware compatibility & testing](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/hardware-testing.md) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
 
 ### Weishaupt WTC — Protocol Reverse Engineering & Upstream Contributions
 
@@ -82,7 +89,7 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 | Burner target output | `0x2542` | Controller-matched percentage |
 | Blower control signal | `0x257E` | Controller-matched percentage |
 
-**Upstream contribution status — November 21, 2026**
+**Upstream contribution snapshot — November 23, 2026**
 
 | Project | Status | Contributions |
 | --- | --- | --- |
@@ -126,43 +133,43 @@ Built and optimized a regional firewood supplier's digital presence to make prod
 
 **Open Source · Raspberry Pi · Linux · Hardware Integration · Home Assistant · IR / LIRC**
 
-Contributing hardware-focused improvements to SunFounder's ecosystem, connecting Linux-level functionality with practical smart-home integrations.
+Contributing hardware-focused improvements to SunFounder's ecosystem, connecting Linux-level functionality with reproducible smart-home integrations.
 
-**Selected upstream contributions**
+**Selected upstream and community contributions**
 
-- [**Pironman 5 Max IR Receiver — PR #26 (open)**](https://github.com/sunfounder/home-assistant-addon/pull/26) — Developed a standalone infrared receiver add-on and native Home Assistant integration, enabling IR signals to be captured through the HAIR Sniffer.
+- [**Pironman 5 Max IR Receiver — upstream PR #26 (closed, not merged)**](https://github.com/sunfounder/home-assistant-addon/pull/26) — Proposed a standalone HAOS infrared receiver add-on and companion integration; independently tested with Home Assistant OS and HAIR.
+- [**Official community add-on listing — PR #27 (open)**](https://github.com/sunfounder/home-assistant-addon/pull/27) — SunFounder proposed linking to the community-maintained IR add-on from its official README rather than taking on maintenance of another official add-on.
 - [**OLED / SSD1306 Font Asset Fix**](https://github.com/sunfounder/pm_auto/pull/19) — Corrected an asset path issue in the upstream driver.
 - [**Debian Trixie Compatibility**](https://github.com/sunfounder/pironman5/pull/109) — Contributed tested platform compatibility information.
 
-**Key technical milestone:** Successfully demonstrated an end-to-end IR receiving pipeline on real Pironman 5 Max hardware using GPIO13, LIRC, Home Assistant Container and HAIR.
+**Key technical milestone:** Demonstrated an end-to-end local IR receiving pipeline using the Pironman 5 Max's built-in receiver, GPIO13, LIRC and HAIR. The functionality has also been integrated into my own [Pironman 5 Home Assistant integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container), with an optional host bridge.
 
-The implementation captures infrared signals locally and forwards them through Home Assistant's event system to a native infrared receiver entity.
+**Maintainer feedback:** SunFounder appreciated the documentation, automated tests and independent HAOS validation. They declined merging the standalone add-on due to maintenance scope and manual companion-integration installation, while offering an official **community-maintained project reference** through PR #27. That proposed listing is not yet merged.
 
-**Current status:** The IR contribution remains experimental. Full Home Assistant OS validation and upstream acceptance are pending.
+**Impact:** Translating device-specific hardware capabilities into locally usable and documented integrations, while making maintenance ownership and deployment limitations transparent.
 
-**Impact:** Extending practical hardware capabilities through documented, reproducible open-source implementations.
-
-[**Explore SunFounder IR contribution →**](https://github.com/sunfounder/home-assistant-addon/pull/26)
-
+[**Explore SunFounder IR proposal →**](https://github.com/sunfounder/home-assistant-addon/pull/26) · [Community listing PR](https://github.com/sunfounder/home-assistant-addon/pull/27) · [Native IR / HAIR integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md)
 
 ### Bitcoin Pi Node — Secure Self-Hosted Bitcoin Core
 
 **Open Source · Raspberry Pi 5 · Linux · Docker Compose · Bash · systemd · GitHub Actions**
 
-Built a lightweight deployment for a **pruned, validating Bitcoin Core node** on Raspberry Pi 5, with dedicated microSD, SSD or NVMe storage and straightforward command-line monitoring.
+Built a lightweight deployment for a **pruned, validating Bitcoin Core node** on Raspberry Pi 5, with dedicated microSD, SSD or NVMe storage, safer startup controls and optional Home Assistant monitoring.
 
 **Key engineering contributions**
 
 - **Safer startup:** Optional systemd service verifies the mounted filesystem UUID before starting the container, reducing the risk of writing blockchain data to the system drive.
 - **Lean architecture:** Configurable pruning, persistent storage and Bitcoin P2P networking without exposing the RPC port on the host.
+- **Home Assistant monitoring:** Optional, read-only MQTT Discovery with **21 entities** for sync progress, peers, storage, uptime, traffic and health indicators; scheduled updates via systemd timer.
+- **Bandwidth management:** Optional upload/download limiting for the Bitcoin container, without shaping unrelated host services.
 - **Operational visibility:** CLI helpers for synchronization status, block height and peer connections.
 - **Maintainability:** Storage preflight checks, setup documentation and GitHub Actions covering Bash syntax, ShellCheck and Docker Compose validation.
 
-**Validation:** Tested on Raspberry Pi 5 with Debian 13 and Bitcoin Core 31.1. Full initial synchronization and controlled restart testing are not yet documented as complete.
+**Validation:** Built and tested on Raspberry Pi 5 with Debian 13 and Bitcoin Core 31.1. The MQTT feature and documentation were merged in [PR #5](https://github.com/ChristophKomenda/bitcoin-pi-node/pull/5) and [PR #6](https://github.com/ChristophKomenda/bitcoin-pi-node/pull/6). Full initial synchronization and controlled restart testing are not yet documented as complete.
 
 **Impact:** Making self-hosted Bitcoin infrastructure more approachable through reproducible deployment, safer storage handling and clear operational documentation.
 
-[**Explore Bitcoin Pi Node →**](https://github.com/ChristophKomenda/bitcoin-pi-node)
+[**Explore Bitcoin Pi Node →**](https://github.com/ChristophKomenda/bitcoin-pi-node) · [Home Assistant setup](https://github.com/ChristophKomenda/bitcoin-pi-node/blob/main/docs/home-assistant.md) · [MQTT monitoring PR](https://github.com/ChristophKomenda/bitcoin-pi-node/pull/5)
 
 ---
 
@@ -174,7 +181,7 @@ I combine qualitative UX thinking with implementation and analytics. Depending o
 
 My open-source contributions follow a similar process: **investigate the problem, validate assumptions, implement a solution, test it and document the results.**
 
-**My focus:** Meaningful outcomes, maintainable implementation and measurable impact. I prefer documented before-and-after evidence over unsupported performance or conversion claims.
+**My focus:** Meaningful outcomes, maintainable implementation and measurable impact. I prefer documented before-and-after evidence over unsupported performance or conversion claims. I also distinguish **tested**, **experimental** and **proposed** functionality when publishing open-source work.
 
 ## Skills & Technologies
 
