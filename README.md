@@ -9,11 +9,29 @@ My work spans **conversion-focused e-commerce experiences** and **hardware-valid
 
 [**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Open-source projects**](https://github.com/ChristophKomenda?tab=repositories)
 
+<!-- Profile UX refresh: progressive disclosure (2026-11-23) -->
+
+### At a glance
+
+I work across **UX/UI, frontend and e-commerce**, and contribute to open-source projects that turn real hardware and protocol research into maintainable software.
+
+| Focus | Evidence | Explore |
+| --- | --- | --- |
+| **UX & e-commerce** | Customer journeys, product presentation, SEO and conversion-oriented frontend work | [DNATest.ch](#dnatestch--uxui--e-commerce-relaunch) · [SR Brennholzhandel](#sr-brennholzhandel--local-business-website-optimization) |
+| **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; optional IR / HAIR support | [Pironman 5](#pironman-5--5-max--home-assistant-integration) |
+| **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
+| **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
+
+**For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
+
+
 **Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core)
 
 ---
 
 ## Selected work
+
+*Selected projects, outcomes and evidence. Expand technical sections when you want more detail.*
 
 ### Pironman 5 / 5 Max — Home Assistant Integration
 
@@ -31,6 +49,9 @@ Successfully reviewed, approved, and merged into the **HACS default repository**
 
 The integration now includes an optional native Home Assistant infrared receiver for the **Pironman 5 Max**, connected via a separately installed Linux/LIRC host bridge. It was tested with HAIR on real hardware; the IR capability remains experimental, receive-only and disabled by default. Version 1.4.0 also introduced expanded network and device diagnostics with capability-aware model detection, without claiming verified Pro Max support.
 
+<details>
+<summary><strong>Explore Pironman engineering details (features, architecture, tests)</strong></summary>
+
 **Key engineering contributions**
 
 - **Native hardware integration:** CPU, GPU, memory, dynamically discovered NVMe / USB storage, network monitoring, and cooling status.
@@ -40,6 +61,8 @@ The integration now includes an optional native Home Assistant infrared receiver
 - **Open-source quality:** GitHub Actions validation, versioned releases, contribution guidelines, security documentation, and structured issue templates.
 - **Hardware compatibility:** Published a model-specific test matrix and capability-aware detection, distinguishing maintainer-tested Pironman 5 Max hardware from unverified models.
 - **Optional infrared reception:** Home Assistant `InfraredReceiverEntity`, HAIR integration and a documented host-side LIRC bridge for Pironman 5 Max.
+
+</details>
 
 **Verified environment:** Pironman 5 Max with Home Assistant Container. Pironman 5 is a target model; additional Pironman variants require hardware validation.
 
@@ -64,6 +87,9 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 - [**PR #24 — 12 WTC Boiler & Pump Sensors**](https://github.com/kraiz/hassio-weishaupt/pull/24) — Added read-only burner, blower and pump diagnostics with automated tests, documented limitations and backward-compatible integration.
 
 **Result:** 24 additional read-only sensors merged upstream (12 HK1 + 12 WTC), expanding heating-system visibility while preserving existing entities and avoiding controller write operations.
+
+<details>
+<summary><strong>Explore Weishaupt technical evidence, register mappings & upstream PR status</strong></summary>
 
 **🔬 Key engineering contributions**
 
@@ -99,11 +125,15 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 
 **Validation scope:** Research findings are based on one WTC-GW 15-B installation. Additional device models, firmware versions and provisional register interpretations require further validation. Long-term polling stability and live integration testing of the newly merged WTC sensors remain outstanding.
 
+</details>
+
 **Impact:** Transforming undocumented heating-controller behavior into tested, documented and upstream-accepted open-source functionality that other Home Assistant users and developers can build upon.
 
 [**Merged upstream contributions →**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) · [WTC sensor expansion](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14) · [Hardware research](https://github.com/ChristophKomenda/hacs-weishaupt-lan/blob/feat/wtc-13-candidates-sammelpr/docs/wtc-gw15b-canapijson-observations-2026-11-10.md)
 
 ### DNATest.ch — UX/UI & E-Commerce Relaunch
+
+**Focus: Making complex product decisions clearer and easier to navigate.**
 
 **UX/UI · WordPress · WooCommerce · HTML · CSS · JavaScript · SEO · CRO**
 
@@ -117,6 +147,8 @@ Redesigned and optimized a Swiss DNA-testing e-commerce experience, focusing on 
 [**Explore DNATest.ch →**](https://dnatest.ch)
 
 ### SR Brennholzhandel — Local Business Website Optimization
+
+**Focus: Helping local customers find products, delivery information and contact options quickly.**
 
 **Web Design · WordPress · Frontend · Local SEO · GA4 · CRO**
 
@@ -135,12 +167,17 @@ Built and optimized a regional firewood supplier's digital presence to make prod
 
 Contributing hardware-focused improvements to SunFounder's ecosystem, connecting Linux-level functionality with reproducible smart-home integrations.
 
+<details>
+<summary><strong>Explore SunFounder PRs, proposed community listing & additional contributions</strong></summary>
+
 **Selected upstream and community contributions**
 
 - [**Pironman 5 Max IR Receiver — upstream PR #26 (closed, not merged)**](https://github.com/sunfounder/home-assistant-addon/pull/26) — Proposed a standalone HAOS infrared receiver add-on and companion integration; independently tested with Home Assistant OS and HAIR.
 - [**Official community add-on listing — PR #27 (open)**](https://github.com/sunfounder/home-assistant-addon/pull/27) — SunFounder proposed linking to the community-maintained IR add-on from its official README rather than taking on maintenance of another official add-on.
 - [**OLED / SSD1306 Font Asset Fix**](https://github.com/sunfounder/pm_auto/pull/19) — Corrected an asset path issue in the upstream driver.
 - [**Debian Trixie Compatibility**](https://github.com/sunfounder/pironman5/pull/109) — Contributed tested platform compatibility information.
+
+</details>
 
 **Key technical milestone:** Demonstrated an end-to-end local IR receiving pipeline using the Pironman 5 Max's built-in receiver, GPIO13, LIRC and HAIR. The functionality has also been integrated into my own [Pironman 5 Home Assistant integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container), with an optional host bridge.
 
@@ -156,6 +193,9 @@ Contributing hardware-focused improvements to SunFounder's ecosystem, connecting
 
 Built a lightweight deployment for a **pruned, validating Bitcoin Core node** on Raspberry Pi 5, with dedicated microSD, SSD or NVMe storage, safer startup controls and optional Home Assistant monitoring.
 
+<details>
+<summary><strong>Explore Bitcoin Pi Node security, MQTT, bandwidth & operations</strong></summary>
+
 **Key engineering contributions**
 
 - **Safer startup:** Optional systemd service verifies the mounted filesystem UUID before starting the container, reducing the risk of writing blockchain data to the system drive.
@@ -164,6 +204,8 @@ Built a lightweight deployment for a **pruned, validating Bitcoin Core node** on
 - **Bandwidth management:** Optional upload/download limiting for the Bitcoin container, without shaping unrelated host services.
 - **Operational visibility:** CLI helpers for synchronization status, block height and peer connections.
 - **Maintainability:** Storage preflight checks, setup documentation and GitHub Actions covering Bash syntax, ShellCheck and Docker Compose validation.
+
+</details>
 
 **Validation:** Built and tested on Raspberry Pi 5 with Debian 13 and Bitcoin Core 31.1. The MQTT feature and documentation were merged in [PR #5](https://github.com/ChristophKomenda/bitcoin-pi-node/pull/5) and [PR #6](https://github.com/ChristophKomenda/bitcoin-pi-node/pull/6). Full initial synchronization and controlled restart testing are not yet documented as complete.
 
@@ -174,6 +216,8 @@ Built a lightweight deployment for a **pruned, validating Bitcoin Core node** on
 ---
 
 ## How I Work
+
+*From user needs to implementation, testing and measurable improvements.*
 
 **Understand the user → design the experience → build the solution → measure and improve.**
 
