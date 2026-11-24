@@ -9,7 +9,7 @@ My work spans **conversion-focused e-commerce experiences** and **hardware-valid
 
 [**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Open-source projects**](https://github.com/ChristophKomenda?tab=repositories)
 
-<!-- Profile UX refresh: progressive disclosure (2026-11-23) -->
+<!-- Profile UX refresh: progressive disclosure and upstream milestones (2026-11-24) -->
 
 ### At a glance
 
@@ -18,12 +18,11 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | Focus | Evidence | Explore |
 | --- | --- | --- |
 | **UX & e-commerce** | Customer journeys, product presentation, SEO and conversion-oriented frontend work | [DNATest.ch](#dnatestch--uxui--e-commerce-relaunch) · [SR Brennholzhandel](#sr-brennholzhandel--local-business-website-optimization) |
-| **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; optional IR / HAIR support | [Pironman 5](#pironman-5--5-max--home-assistant-integration) |
+| **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; IR add-on listed in **SunFounder's official documentation** | [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [SunFounder](#sunfounder--upstream-contributions) |
 | **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
 
 **For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
-
 
 **Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core)
 
@@ -39,15 +38,26 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 
 Designed, developed, and maintain an open-source Home Assistant integration that enables **native monitoring and hardware control for SunFounder Pironman 5 / 5 Max** devices.
 
-Built with **Home Assistant Container (Docker)** in mind, the integration bridges the gap between SunFounder's local hardware API and Home Assistant's native entities — without additional cloud services, MQTT, or a separate Home Assistant add-on.
+Built with **Home Assistant Container (Docker)** in mind, the integration bridges the gap between SunFounder's local hardware API and Home Assistant's native entities — without additional cloud services, MQTT, or a separate Home Assistant add-on for core functionality.
 
-**🏆 Key milestone: Official HACS acceptance**
+**🏆 Key milestones**
 
-Successfully reviewed, approved, and merged into the **HACS default repository**, allowing users to discover, install, and update the integration directly through HACS.
+| Milestone | Outcome |
+| --- | --- |
+| **Official HACS acceptance** | Reviewed, approved and merged into the HACS default repository, enabling direct discovery, installation and updates. |
+| **SunFounder documentation listing** | The community-maintained Pironman 5 Max IR receiver add-on is now listed in SunFounder's official Home Assistant add-on repository following the merge of [PR #27](https://github.com/sunfounder/home-assistant-addon/pull/27) on November 24, 2026. |
 
 **Recent milestone: v1.5.0 — experimental native IR / HAIR receiver support**
 
-The integration now includes an optional native Home Assistant infrared receiver for the **Pironman 5 Max**, connected via a separately installed Linux/LIRC host bridge. It was tested with HAIR on real hardware; the IR capability remains experimental, receive-only and disabled by default. Version 1.4.0 also introduced expanded network and device diagnostics with capability-aware model detection, without claiming verified Pro Max support.
+The integration now includes an optional native Home Assistant infrared receiver for the **Pironman 5 Max**, connected via a separately installed Linux/LIRC host bridge.
+
+It was tested with HAIR on real hardware; the IR capability remains experimental, receive-only and disabled by default.
+
+Version 1.4.0 also introduced expanded network and device diagnostics with capability-aware model detection, without claiming verified Pro Max support.
+
+**Extended HAOS support**
+
+A complementary, community-maintained IR receiver add-on extends the infrared functionality to Home Assistant OS users. Its v0.2.0 event-based architecture connects directly to the existing HACS integration, removing the need for manual installation of a separate companion integration.
 
 <details>
 <summary><strong>Explore Pironman engineering details (features, architecture, tests)</strong></summary>
@@ -61,14 +71,17 @@ The integration now includes an optional native Home Assistant infrared receiver
 - **Open-source quality:** GitHub Actions validation, versioned releases, contribution guidelines, security documentation, and structured issue templates.
 - **Hardware compatibility:** Published a model-specific test matrix and capability-aware detection, distinguishing maintainer-tested Pironman 5 Max hardware from unverified models.
 - **Optional infrared reception:** Home Assistant `InfraredReceiverEntity`, HAIR integration and a documented host-side LIRC bridge for Pironman 5 Max.
+- **HAOS interoperability:** Complementary IR receiver add-on with event-based communication to the existing HACS integration.
+- **Installation UX:** Removed the need to manually copy a separate companion integration into Home Assistant's configuration directory.
+- **Maintainer collaboration:** Incorporated manufacturer feedback into the installation architecture and documentation.
 
 </details>
 
-**Verified environment:** Pironman 5 Max with Home Assistant Container. Pironman 5 is a target model; additional Pironman variants require hardware validation.
+**Verified environment:** Pironman 5 Max with Home Assistant Container. The companion IR add-on has also received independent community testing on Home Assistant OS. Pironman 5 is a target model; additional Pironman variants require hardware validation.
 
-**Impact:** Expanded Home Assistant integration options for Pironman users, especially those running Docker-based installations, and established a maintainable foundation for future hardware support and community contributions.
+**Impact:** Expanded Home Assistant integration options for Pironman users across Container and HAOS environments, reduced installation friction, and established a maintainable foundation for future hardware support and community contributions.
 
-[**Explore project & installation →**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [IR / HAIR documentation](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md) · [HACS acceptance](https://github.com/hacs/default/pull/12242) · [Hardware compatibility & testing](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/hardware-testing.md) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
+[**Explore project & installation →**](https://github.com/ChristophKomenda/pironman5-homeassistant-container) · [IR / HAIR documentation](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md) · [HACS acceptance](https://github.com/hacs/default/pull/12242) · [SunFounder community listing](https://github.com/sunfounder/home-assistant-addon/pull/27) · [Hardware compatibility & testing](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/hardware-testing.md) · [Latest release](https://github.com/ChristophKomenda/pironman5-homeassistant-container/releases/latest)
 
 ### Weishaupt WTC — Protocol Reverse Engineering & Upstream Contributions
 
@@ -91,7 +104,7 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 <details>
 <summary><strong>Explore Weishaupt technical evidence, register mappings & upstream PR status</strong></summary>
 
-**🔬 Key engineering contributions**
+**Key engineering contributions**
 
 - **Heating-circuit monitoring:** Validated heating curve slope, parallel shift, minimum and maximum flow-temperature targets, summer/winter switching thresholds, frost protection and additional HK1 configuration parameters.
 - **Protocol reverse engineering:** Identified undocumented CanApiJson register mappings and request/response behavior through direct hardware measurements.
@@ -163,29 +176,72 @@ Built and optimized a regional firewood supplier's digital presence to make prod
 
 ### SunFounder — Upstream Contributions
 
-**Open Source · Raspberry Pi · Linux · Hardware Integration · Home Assistant · IR / LIRC**
+**Open Source · Raspberry Pi · Linux · Hardware Integration · Home Assistant · IR / LIRC · Maintainer Collaboration**
 
 Contributing hardware-focused improvements to SunFounder's ecosystem, connecting Linux-level functionality with reproducible smart-home integrations.
 
+**🏆 Key milestone: Listed in SunFounder's official documentation**
+
+On November 24, 2026, SunFounder merged [PR #27](https://github.com/sunfounder/home-assistant-addon/pull/27), introducing a dedicated **Community add-ons** section in its official Home Assistant add-on repository and listing my community-maintained Pironman 5 Max IR receiver add-on.
+
+The listing followed technical collaboration, independent community testing and improvements to the installation experience based on manufacturer feedback.
+
+**From community feedback to manufacturer documentation**
+
+| Stage | Outcome |
+| --- | --- |
+| **Community need** | Identified demand for Pironman 5 Max infrared receiver support on Home Assistant OS. |
+| **Engineering** | Developed a standalone HAOS add-on and companion integration with automated validation and documentation. |
+| **Hardware validation** | Received independent community testing with HAOS and HAIR. |
+| **Maintainer feedback** | Identified maintenance concerns and unnecessary manual installation steps. |
+| **Installation optimization** | Introduced v0.2.0 with direct event-based communication to the existing HACS integration. |
+| **Official documentation listing** | SunFounder merged PR #27, making the community-maintained solution discoverable through its official repository. |
+
 <details>
-<summary><strong>Explore SunFounder PRs, proposed community listing & additional contributions</strong></summary>
+<summary><strong>Explore SunFounder PRs, technical implementation & maintainer collaboration</strong></summary>
 
 **Selected upstream and community contributions**
 
 - [**Pironman 5 Max IR Receiver — upstream PR #26 (closed, not merged)**](https://github.com/sunfounder/home-assistant-addon/pull/26) — Proposed a standalone HAOS infrared receiver add-on and companion integration; independently tested with Home Assistant OS and HAIR.
-- [**Official community add-on listing — PR #27 (open)**](https://github.com/sunfounder/home-assistant-addon/pull/27) — SunFounder proposed linking to the community-maintained IR add-on from its official README rather than taking on maintenance of another official add-on.
+- [**Official community add-on listing — PR #27 (merged)**](https://github.com/sunfounder/home-assistant-addon/pull/27) — Manufacturer-authored documentation update introducing a Community add-ons section and listing my community-maintained IR receiver add-on, including the simplified installation approach.
 - [**OLED / SSD1306 Font Asset Fix**](https://github.com/sunfounder/pm_auto/pull/19) — Corrected an asset path issue in the upstream driver.
 - [**Debian Trixie Compatibility**](https://github.com/sunfounder/pironman5/pull/109) — Contributed tested platform compatibility information.
 
+**Technical architecture**
+
+The local infrared receiving pipeline connects the Pironman 5 Max's built-in IR receiver to Home Assistant through GPIO13, LIRC and the appropriate integration layer.
+
+Two deployment approaches address different Home Assistant environments:
+
+| Environment | Implementation |
+| --- | --- |
+| Home Assistant Container | Linux/LIRC host bridge and native HACS integration |
+| Home Assistant OS | Community-maintained IR add-on with direct event-based communication to the existing HACS integration |
+
+Both approaches aim to make the hardware's infrared receiving functionality accessible to Home Assistant users without unnecessary cloud dependencies.
+
+**Installation experience improvements — v0.2.0**
+
+- Introduced the `pironman5` event mode for direct communication with the existing HACS integration.
+- Removed the need to manually copy `sunfounder_ir` into `/config/custom_components/`.
+- Reduced installation complexity for HAOS users.
+- Reused existing integration functionality instead of requiring a separate custom component.
+- Updated documentation to reflect the recommended HACS-based installation path.
+- Preserved independent maintenance ownership of the community add-on.
+
 </details>
 
-**Key technical milestone:** Demonstrated an end-to-end local IR receiving pipeline using the Pironman 5 Max's built-in receiver, GPIO13, LIRC and HAIR. The functionality has also been integrated into my own [Pironman 5 Home Assistant integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container), with an optional host bridge.
+**Maintainer collaboration:** SunFounder positively acknowledged the documentation, automated tests, independent HAOS validation and simplified installation architecture.
 
-**Maintainer feedback:** SunFounder appreciated the documentation, automated tests and independent HAOS validation. They declined merging the standalone add-on due to maintenance scope and manual companion-integration installation, while offering an official **community-maintained project reference** through PR #27. That proposed listing is not yet merged.
+Following maintainer feedback, I introduced an event-based integration with the existing HACS component, addressing the concern about manual companion-integration installation.
 
-**Impact:** Translating device-specific hardware capabilities into locally usable and documented integrations, while making maintenance ownership and deployment limitations transparent.
+SunFounder subsequently merged PR #27, officially listing the community-maintained IR add-on in its documentation while keeping maintenance ownership independent.
 
-[**Explore SunFounder IR proposal →**](https://github.com/sunfounder/home-assistant-addon/pull/26) · [Community listing PR](https://github.com/sunfounder/home-assistant-addon/pull/27) · [Native IR / HAIR integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md)
+**Scope:** The IR receiver add-on remains community-maintained and is not an official SunFounder-maintained add-on. The upstream proposal in PR #26 was not merged due to maintenance considerations.
+
+**Impact:** Translating device-specific hardware capabilities into locally usable and documented integrations, reducing installation friction, and establishing a constructive collaboration between independent open-source development and the hardware manufacturer.
+
+[**Official SunFounder community listing →**](https://github.com/sunfounder/home-assistant-addon#community-add-ons) · [Merged documentation PR #27](https://github.com/sunfounder/home-assistant-addon/pull/27) · [Original IR proposal #26](https://github.com/sunfounder/home-assistant-addon/pull/26) · [Native IR / HAIR integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md)
 
 ### Bitcoin Pi Node — Secure Self-Hosted Bitcoin Core
 
@@ -225,6 +281,8 @@ I combine qualitative UX thinking with implementation and analytics. Depending o
 
 My open-source contributions follow a similar process: **investigate the problem, validate assumptions, implement a solution, test it and document the results.**
 
+I apply the same user-centered approach to technical products and developer experiences — reducing installation friction, improving documentation, incorporating maintainer feedback and making complex systems easier to understand and operate.
+
 **My focus:** Meaningful outcomes, maintainable implementation and measurable impact. I prefer documented before-and-after evidence over unsupported performance or conversion claims. I also distinguish **tested**, **experimental** and **proposed** functionality when publishing open-source work.
 
 ## Skills & Technologies
@@ -238,6 +296,7 @@ My open-source contributions follow a similar process: **investigate the problem
 | **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
 | **Software Development & Testing** | Python, API integration, protocol analysis, automated regression testing, Git, GitHub |
 | **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, REST APIs, Nginx, Cloudflare |
+| **Developer Experience & Collaboration** | Technical documentation, installation UX, upstream contributions, maintainer feedback, community-driven development |
 
 ## Background
 
