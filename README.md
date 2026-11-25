@@ -21,11 +21,12 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; IR add-on listed in **SunFounder's official documentation** | [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [SunFounder](#sunfounder--upstream-contributions) |
 | **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
 | **Network monitoring & MQTT** | Powerline2MQTT: three adapters and **31 validated Home Assistant entities** | [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) |
+| **Release engineering & developer experience** | Three HAOS app packages, automated upstream synchronization, SHA-256 integrity checks and five native architecture build targets | [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
 
 **For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
 
-**Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core)
+**Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
 
 ---
 
@@ -278,6 +279,59 @@ Designed and developed a standalone, read-only MQTT bridge that makes compatible
 
 [**Explore Powerline2MQTT →**](https://github.com/ChristophKomenda/powerline2mqtt) · [Releases](https://github.com/ChristophKomenda/powerline2mqtt/releases) · [Release validation](https://github.com/ChristophKomenda/powerline2mqtt/blob/main/docs/RELEASE.md)
 
+### Home Assistant Community Apps — Automated App Distribution
+
+**Open Source · Home Assistant OS · Python · GitHub Actions · CI/CD · Docker · Release Engineering · Developer Experience**
+
+Designed and implemented an independent, source-based Home Assistant OS app catalog that gives users one repository to discover and install multiple local-first applications, while preserving separate upstream projects and release lifecycles.
+
+| App | Purpose | Build targets |
+| --- | --- | --- |
+| [Powerline2MQTT](https://github.com/ChristophKomenda/powerline2mqtt) | Local Powerline network monitoring | ARM64 / AMD64 |
+| [Pironman IR Receiver](https://github.com/ChristophKomenda/home-assistant-addon) | Local infrared reception for Pironman 5 Max | ARM64 |
+| [Bitcoin Node Monitor](https://github.com/ChristophKomenda/bitcoin-node-monitor) | Restricted Bitcoin Core RPC monitoring via MQTT | ARM64 / AMD64 |
+
+**Engineering milestone:** Three app packages integrated, eight release-selection tests passed and all six distribution CI checks passed for the third-app integration ([PR #3](https://github.com/ChristophKomenda/home-assistant-apps/pull/3)).
+
+<details>
+<summary><strong>Explore distribution architecture, automation & installation UX</strong></summary>
+
+- **Automated release discovery:** Scheduled and manually triggered upstream release checks, with app-specific prerelease policies and downgrade protection.
+- **Reviewable updates:** Import published sources from resolved Git commits and create update pull requests instead of merging automatically.
+- **Integrity and traceability:** Exact source versions, commit references and SHA-256 content hashes recorded in a lock file.
+- **Build validation:** Five native ARM64/AMD64 Docker build targets and separate static package validation.
+- **Developer experience:** Shared installation entry point, accessible project documentation, catalog branding, contribution guidelines and security policy.
+- **Independent maintenance:** App-specific fixes remain upstream; the central repository owns distribution and catalog presentation.
+
+</details>
+
+**Validation scope:** Static checks and native image builds passed. A no-update synchronization run was successful; importing a newer release and creating a real automatic update PR still need end-to-end confirmation. Central HAOS runtime testing remains pending. Content hashes are integrity checks, not independent signatures or a security audit.
+
+**Impact:** Reduces installation and release-maintenance friction through a reusable distribution architecture, combining product UX with software engineering and transparent release management.
+
+[**Explore Community Apps →**](https://github.com/ChristophKomenda/home-assistant-apps) · [CI workflows](https://github.com/ChristophKomenda/home-assistant-apps/actions) · [Pinned upstream sources](https://github.com/ChristophKomenda/home-assistant-apps/blob/main/SOURCES.md)
+
+### Bitcoin Node Monitor — Local Bitcoin Core Monitoring
+
+**Open Source · Python · Bitcoin Core JSON-RPC · MQTT · TLS · Home Assistant OS · Docker**
+
+Developed an independent monitoring app for existing Bitcoin Core nodes, extending the monitoring concept from Bitcoin Pi Node to a network-based deployment without access to the Docker socket or a privileged container.
+
+<details>
+<summary><strong>Explore monitoring features, security & validation</strong></summary>
+
+- **19 MQTT Discovery entities:** Block and header heights, verification progress, peer connections, blockchain data size, uptime, network traffic and sync health indicators.
+- **Restricted client-side RPC:** Four monitoring methods only; dedicated server-side method restrictions are also required.
+- **Transport security:** TLS support and certificate verification, with insecure connections requiring explicit opt-in.
+- **Availability:** MQTT availability, last will and reconnection logic.
+- **Deployment:** Experimental HAOS packaging, ARM64/AMD64 build targets and automated distribution through the Community Apps repository.
+
+</details>
+
+**Validation:** Six unit tests passed locally and source-repository CI passed for [v0.1.0-alpha.1](https://github.com/ChristophKomenda/bitcoin-node-monitor/releases/tag/v0.1.0-alpha.1). Live RPC, reconnect behavior and HAOS runtime testing remain outstanding. Remote filesystem free space is deliberately not reported. Bitcoin RPC must not be exposed publicly.
+
+[**Explore Bitcoin Node Monitor →**](https://github.com/ChristophKomenda/bitcoin-node-monitor) · [Experimental release](https://github.com/ChristophKomenda/bitcoin-node-monitor/releases/tag/v0.1.0-alpha.1) · [Community app catalog](https://github.com/ChristophKomenda/home-assistant-apps)
+
 ### Bitcoin Pi Node — Secure Self-Hosted Bitcoin Core
 
 **Open Source · Raspberry Pi 5 · Linux · Docker Compose · Bash · systemd · GitHub Actions**
@@ -331,6 +385,7 @@ I apply the same user-centered approach to technical products and developer expe
 | **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
 | **Software Development & Testing** | Python, API integration, protocol analysis, automated regression testing, Git, GitHub |
 | **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, Ethernet / HomePlug, REST APIs, Nginx, Cloudflare |
+| **CI/CD & Release Engineering** | GitHub Actions, native multi-architecture Docker builds, versioned upstream imports, SHA-256 integrity checks, reviewable release automation |
 | **Developer Experience & Collaboration** | Technical documentation, installation UX, upstream contributions, maintainer feedback, community-driven development |
 
 ## Background
