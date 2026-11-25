@@ -5,11 +5,27 @@
 
 I design and build intuitive digital experiences where **user-centered design, frontend engineering and measurable outcomes** meet — from e-commerce journeys to locally integrated hardware.
 
-My work spans **conversion-focused e-commerce experiences** and **hardware-validated open-source integrations** — turning complex requirements into clear, practical solutions.
+I help businesses make complex digital customer journeys easier to navigate, and build local-first software that makes hardware easier to use and maintain. My work combines **UX, frontend engineering, e-commerce and open-source development**.
 
 [**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Open-source projects**](https://github.com/ChristophKomenda?tab=repositories)
 
-<!-- Profile UX refresh: progressive disclosure and upstream milestones (2026-11-24) -->
+<!-- Profile UX refresh: audience navigation and verified milestones (2026-11-25) -->
+
+### Selected milestones
+
+| Evidence | What it demonstrates |
+| --- | --- |
+| [**HACS default repository acceptance**](https://github.com/hacs/default/pull/12242) | Independently developed integration available through HACS discovery and updates |
+| [**SunFounder community listing — merged PR #27**](https://github.com/sunfounder/home-assistant-addon/pull/27) | Manufacturer documentation recognition following independent HAOS testing and installation UX improvements (November 24, 2026) |
+| [**Weishaupt upstream contributions**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) | Three merged contributions adding 24 read-only sensors |
+
+*The SunFounder IR add-on remains community-maintained, not officially supported by the manufacturer.*
+
+**Find what matters to you:**
+
+- [Client projects](#dnatestch--uxui--e-commerce-relaunch) — UX, e-commerce and digital experiences
+- [Hiring & qualifications](#background) — experience, skills and professional background
+- [Open-source engineering](#pironman-5--5-max--home-assistant-integration) — software, hardware and upstream contributions
 
 ### At a glance
 
@@ -413,6 +429,11 @@ I'm open to **UX/UI, frontend and e-commerce opportunities**, **selected freelan
 
 If you're building a product, improving a digital customer journey or working on a project where design and engineering meet, I'd be happy to connect.
 
-[**Explore my portfolio**](https://christophkomenda.de) · [**View my CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Start a GitHub discussion**](https://github.com/ChristophKomenda/pironman5-homeassistant-container/discussions)
+| Interested in | Next step |
+| --- | --- |
+| Freelance UX, web design or e-commerce projects | [Explore my portfolio and get in touch](https://christophkomenda.de) |
+| Hiring or product-team collaboration | [View my CV](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) |
+| Open-source collaboration | [Explore repositories](https://github.com/ChristophKomenda?tab=repositories) |
+| Pironman integration and hardware testing | [Join the community discussion](https://github.com/ChristophKomenda/pironman5-homeassistant-container/discussions) |
 
 *Design thoughtfully. Build practically. Improve continuously.*
