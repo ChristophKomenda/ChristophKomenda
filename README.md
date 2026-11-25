@@ -18,6 +18,7 @@ I help businesses make complex digital customer journeys easier to navigate, and
 | [**HACS default repository acceptance**](https://github.com/hacs/default/pull/12242) | Independently developed integration available through HACS discovery and updates |
 | [**SunFounder community listing — merged PR #27**](https://github.com/sunfounder/home-assistant-addon/pull/27) | Manufacturer documentation recognition following independent HAOS testing and installation UX improvements (November 24, 2026) |
 | [**Weishaupt upstream contributions**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) | Three merged contributions adding 24 read-only sensors |
+| **Inkcut upstream contributions** — [#450](https://github.com/inkcut/inkcut/pull/450) · [#451](https://github.com/inkcut/inkcut/pull/451) | Two upstream proposals for network serial transport and native device support; physical pen-plot validation |
 
 *The SunFounder IR add-on remains community-maintained, not officially supported by the manufacturer.*
 
@@ -36,13 +37,14 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | **UX & e-commerce** | Customer journeys, product presentation, SEO and conversion-oriented frontend work | [DNATest.ch](#dnatestch--uxui--e-commerce-relaunch) · [SR Brennholzhandel](#sr-brennholzhandel--local-business-website-optimization) |
 | **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; IR add-on listed in **SunFounder's official documentation** | [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [SunFounder](#sunfounder--upstream-contributions) |
 | **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
+| **Network serial & hardware integration** | RFC2217 transport prototype, six new regression tests and physical SVG pen plotting | [Inkcut](#inkcut--network-serial-transport--plotter-integration) |
 | **Network monitoring & MQTT** | Powerline2MQTT: three adapters and **31 validated Home Assistant entities** | [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) |
 | **Release engineering & developer experience** | Three HAOS app packages, automated upstream synchronization, SHA-256 integrity checks and five native architecture build targets | [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
 
 **For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
 
-**Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
+**Explore selected work:** [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
 
 ---
 
@@ -185,6 +187,37 @@ Investigated a temperature-setting issue in Tado Hijack v5.13.0 using a Home Ass
 
 [**Explore upstream contribution →**](https://github.com/banter240/tado_hijack/pull/217)
 
+
+### Inkcut — Network Serial Transport & Plotter Integration
+
+**Open Source · Python · asyncio · RFC2217 · HPGL · Linux · Raspberry Pi · Hardware Validation**
+
+Investigated a limitation in Inkcut's serial transport while bringing a legacy Refine EH-1351 vinyl cutter into a Linux-based workflow. Developed a network serial transport prototype and proposed a portable device profile in two independent upstream pull requests.
+
+| Upstream contribution | Validation |
+| --- | --- |
+| [**PR #450 — RFC2217 network serial transport**](https://github.com/inkcut/inkcut/pull/450) | Six new regression tests; 92 tests passed; successful physical SVG pen plot over the network |
+| [**PR #451 — Refine EH-1351 device profile**](https://github.com/inkcut/inkcut/pull/451) | Profile and serial defaults validated; all 86 upstream tests passed independently |
+
+<details>
+<summary><strong>Explore Inkcut architecture, testing & limitations</strong></summary>
+
+- **Root cause analysis:** Reproduced an unsupported write-timeout operation in the existing serial transport when using RFC2217.
+- **Transport engineering:** Proposed a dedicated asynchronous network serial transport with ordered writes, error propagation and configurable serial URLs.
+- **Hardware integration:** Connected a CH340 USB serial interface to a Raspberry Pi running ser2net, with Inkcut running on a second Raspberry Pi 5.
+- **Remote operation:** Used noVNC through an SSH tunnel for browser-based access to Inkcut.
+- **Physical validation:** Plotted a 20 × 20 mm square, 14 mm circle and 6 mm crosshair using HPGL and a pen. Ruler measurements showed approximate dimensional agreement.
+- **Independent contributions:** Kept the device profile separate from the transport changes and excluded installation-specific network addresses.
+
+**Validation scope:** Tested on Debian 13 / ARM64 with one Refine EH-1351. Timeout, cancellation and connection-loss handling require further hardening. Direct USB operation with the new native profile, maximum cutting width, blade cutting and repeated passes remain unverified. RFC2217 requires a trusted network or appropriately secured tunnel.
+
+</details>
+
+**Status:** Both upstream PRs were opened for review on November 25, 2026; acceptance was pending at publication.
+
+**Expected impact:** Makes legacy serial hardware more accessible in local Linux workflows and lays a foundation for network-connected plotting across compatible devices.
+
+[**Network transport PR →**](https://github.com/inkcut/inkcut/pull/450) · [Device profile PR](https://github.com/inkcut/inkcut/pull/451)
 
 ### DNATest.ch — UX/UI & E-Commerce Relaunch
 
@@ -423,8 +456,8 @@ I apply the same user-centered approach to technical products and developer expe
 | **E-Commerce & CMS** | WordPress, Elementor, WooCommerce, Shopify, Salesforce Commerce Cloud |
 | **SEO & Optimization** | Technical SEO, Schema.org, Core Web Vitals, PageSpeed, conversion rate optimization (CRO) |
 | **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
-| **Software Development & Testing** | Python, API integration, protocol analysis, automated regression testing, Git, GitHub |
-| **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, Ethernet / HomePlug, REST APIs, Nginx, Cloudflare |
+| **Software Development & Testing** | Python, asyncio, API integration, protocol analysis, automated regression testing, Git, GitHub |
+| **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, Ethernet / HomePlug, RFC2217, HPGL, REST APIs, Nginx, Cloudflare |
 | **CI/CD & Release Engineering** | GitHub Actions, native multi-architecture Docker builds, versioned upstream imports, SHA-256 integrity checks, reviewable release automation |
 | **Developer Experience & Collaboration** | Technical documentation, installation UX, upstream contributions, maintainer feedback, community-driven development |
 
