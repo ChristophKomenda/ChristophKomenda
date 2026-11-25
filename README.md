@@ -162,6 +162,30 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 
 [**Merged upstream contributions →**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) · [WTC sensor expansion](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14) · [Hardware research](https://github.com/ChristophKomenda/hacs-weishaupt-lan/blob/feat/wtc-13-candidates-sammelpr/docs/wtc-gw15b-canapijson-observations-2026-11-10.md)
 
+### Tado Hijack — Climate Control & Upstream Contribution
+
+**Open Source · Python · Home Assistant · Tado X · API Debugging · Regression Testing**
+
+Investigated a temperature-setting issue in Tado Hijack v5.13.0 using a Home Assistant Container installation with 11 Tado X heating zones. A requested setpoint of 19.5 °C was rounded to 20 °C in the outgoing Hops API payload.
+
+<details>
+<summary><strong>Explore the proposed fix & validation</strong></summary>
+
+- **Root cause analysis:** Traced the behavior to unconditional integer rounding in the climate entity.
+- **API debugging:** Identified discrepancies between requested temperature setpoints and outgoing Hops API payloads.
+- **Precision-aware implementation:** Proposed respecting the advertised target temperature step while preserving backward compatibility.
+- **Regression testing:** Added isolated tests for fractional and integer temperature steps, missing temperature input and coordinator payload handling.
+- **Code quality:** Ran targeted regression tests and Ruff lint locally.
+
+</details>
+
+**Status:** [Upstream PR #217](https://github.com/banter240/tado_hijack/pull/217) is open as of November 25, 2026. The original behavior was reproduced on real hardware; the proposed fix has not yet been validated on live Tado hardware.
+
+**Expected impact:** More predictable temperature control and alignment between the Home Assistant interface and the values sent to the heating system.
+
+[**Explore upstream contribution →**](https://github.com/banter240/tado_hijack/pull/217)
+
+
 ### DNATest.ch — UX/UI & E-Commerce Relaunch
 
 **Focus: Making complex product decisions clearer and easier to navigate.**
