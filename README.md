@@ -20,11 +20,12 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | **UX & e-commerce** | Customer journeys, product presentation, SEO and conversion-oriented frontend work | [DNATest.ch](#dnatestch--uxui--e-commerce-relaunch) · [SR Brennholzhandel](#sr-brennholzhandel--local-business-website-optimization) |
 | **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; IR add-on listed in **SunFounder's official documentation** | [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [SunFounder](#sunfounder--upstream-contributions) |
 | **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
+| **Network monitoring & MQTT** | Powerline2MQTT: three adapters and **31 validated Home Assistant entities** | [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
 
 **For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
 
-**Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core)
+**Explore selected work:** [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core)
 
 ---
 
@@ -243,6 +244,40 @@ SunFounder subsequently merged PR #27, officially listing the community-maintain
 
 [**Official SunFounder community listing →**](https://github.com/sunfounder/home-assistant-addon#community-add-ons) · [Merged documentation PR #27](https://github.com/sunfounder/home-assistant-addon/pull/27) · [Original IR proposal #26](https://github.com/sunfounder/home-assistant-addon/pull/26) · [Native IR / HAIR integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md)
 
+### Powerline2MQTT — Local Powerline Network Monitoring
+
+**Open Source · Python · MQTT · Home Assistant · Docker · Linux · HomePlug AV/AV2 · Raspberry Pi**
+
+Designed and developed a standalone, read-only MQTT bridge that makes compatible Powerline adapters observable without cloud services or adapter IP addresses. The collector runs independently of Home Assistant, using local Ethernet management queries via open-plc-utils.
+
+**Key milestone: v0.1.0-rc.2 — hardware-validated MQTT monitoring**
+
+| Validation | Outcome |
+| --- | --- |
+| Hardware | Three adapters detected on Raspberry Pi 5 / Debian 13 (TP-Link QCA7420 and two Gongjin-OUI remote stations) |
+| Home Assistant | Four devices, **31/31 entities available**, including three connectivity sensors |
+| Automated testing | **19 unit tests passed** |
+| Reliability | Observed automatic recovery from transient scan failures in approximately five seconds |
+| Deployment | ARM64 runtime validated; ARM64 and AMD64 container builds; experimental HAOS packaging |
+
+<details>
+<summary><strong>Explore Powerline2MQTT architecture, reliability & developer experience</strong></summary>
+
+- **MQTT-first architecture:** Decouples Layer 2 hardware discovery from Home Assistant, allowing other MQTT clients and remote collectors to consume the data.
+- **Automatic discovery:** Adapter topology, TX/RX link rates, network roles, firmware and chipset information where available.
+- **Resilient monitoring:** Monotonic polling scheduler, five-second retries, debounced adapter presence and discovery refresh after MQTT reconnect or Home Assistant birth messages.
+- **Operational diagnostics:** Session success and failure counters, consecutive failures, polling intervals and last successful scan.
+- **Security-conscious deployment:** Read-only management queries, minimal Docker capabilities and no cloud dependencies.
+- **Developer experience:** Multi-architecture CI, versioned prereleases, installation and rollback guidance, compatibility documentation and explicit release gates.
+
+</details>
+
+**Validation scope:** RC.2 was tested on one ARM64 installation. Long-term stability, controlled outage tests, AMD64 runtime and HAOS runtime validation remain outstanding. G.hn is not supported; public container image redistribution remains gated pending dependency license review.
+
+**Impact:** Turns otherwise difficult-to-access Powerline link data into actionable smart-home diagnostics, while keeping the collector independent of any single automation platform.
+
+[**Explore Powerline2MQTT →**](https://github.com/ChristophKomenda/powerline2mqtt) · [Releases](https://github.com/ChristophKomenda/powerline2mqtt/releases) · [Release validation](https://github.com/ChristophKomenda/powerline2mqtt/blob/main/docs/RELEASE.md)
+
 ### Bitcoin Pi Node — Secure Self-Hosted Bitcoin Core
 
 **Open Source · Raspberry Pi 5 · Linux · Docker Compose · Bash · systemd · GitHub Actions**
@@ -295,7 +330,7 @@ I apply the same user-centered approach to technical products and developer expe
 | **SEO & Optimization** | Technical SEO, Schema.org, Core Web Vitals, PageSpeed, conversion rate optimization (CRO) |
 | **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
 | **Software Development & Testing** | Python, API integration, protocol analysis, automated regression testing, Git, GitHub |
-| **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, REST APIs, Nginx, Cloudflare |
+| **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, Ethernet / HomePlug, REST APIs, Nginx, Cloudflare |
 | **Developer Experience & Collaboration** | Technical documentation, installation UX, upstream contributions, maintainer feedback, community-driven development |
 
 ## Background
