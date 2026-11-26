@@ -19,6 +19,7 @@ I help businesses make complex digital customer journeys easier to navigate, and
 | [**SunFounder community listing — merged PR #27**](https://github.com/sunfounder/home-assistant-addon/pull/27) | Manufacturer documentation recognition following independent HAOS testing and installation UX improvements (November 24, 2026) |
 | [**Weishaupt upstream contributions**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) | Three merged contributions adding 24 read-only sensors |
 | **Inkcut upstream contributions** — [#450](https://github.com/inkcut/inkcut/pull/450) · [#451](https://github.com/inkcut/inkcut/pull/451) | Two upstream proposals for network serial transport and native device support; physical pen-plot validation |
+| **Energy monitoring & MQTT security** — [hm2mqtt #490](https://github.com/tomquist/hm2mqtt/pull/490) · [GroBro #244–#247](https://github.com/robertzaage/GroBro/pulls?q=is%3Apr+author%3AChristophKomenda) | Proposed communication diagnostics and secure MQTT deployment improvements, supported by automated tests, ARM64 deployment observations and benchmarks |
 
 *The SunFounder IR add-on remains community-maintained, not officially supported by the manufacturer.*
 
@@ -38,13 +39,14 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; IR add-on listed in **SunFounder's official documentation** | [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [SunFounder](#sunfounder--upstream-contributions) |
 | **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
 | **Network serial & hardware integration** | RFC2217 transport prototype, six new regression tests and physical SVG pen plotting | [Inkcut](#inkcut--network-serial-transport--plotter-integration) |
+| **Energy monitoring & secure IoT** | Five proposed battery communication diagnostics, 990 passing unit tests in hm2mqtt validation and four GroBro proposals covering TLS security and deployment | [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) |
 | **Network monitoring & MQTT** | Powerline2MQTT: three adapters and **31 validated Home Assistant entities** | [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) |
 | **Release engineering & developer experience** | Three HAOS app packages, automated upstream synchronization, SHA-256 integrity checks and five native architecture build targets | [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
 
 **For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
 
-**Explore selected work:** [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
+**Explore selected work:** [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) · [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
 
 ---
 
@@ -133,6 +135,7 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 - **Hardware validation:** Used repeated read-only probes, physical controller comparisons and controlled A-B-A measurements.
 - **Boiler sensor expansion:** Added 12 WTC sensors upstream in [PR #24](https://github.com/kraiz/hassio-weishaupt/pull/24), covering burner modulation, blower operation, pump performance and diagnostic parameters.
 - **Additional protocol research:** Proposed 13 WTC sensor candidates with regular 60-second polling in [JS-DE-Tech PR #14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14).
+- **Device clock diagnostics:** Proposed timezone-aware device timestamps, signed clock drift diagnostics, DST handling and fresh-register validation without additional polling or write operations in [PR #18](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/18). The published proposal reports 76 passing tests; subsequent local production-patch validation reported 87 passing tests. Broader hardware validation remains outstanding.
 - **Safety-first implementation:** Preserved entity identifiers, avoided unverified controller write operations and documented known hardware compatibility limitations.
 
 **Selected hardware observations**
@@ -163,6 +166,123 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 **Impact:** Transforming undocumented heating-controller behavior into tested, documented and upstream-accepted open-source functionality that other Home Assistant users and developers can build upon.
 
 [**Merged upstream contributions →**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) · [WTC sensor expansion](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14) · [Hardware research](https://github.com/ChristophKomenda/hacs-weishaupt-lan/blob/feat/wtc-13-candidates-sammelpr/docs/wtc-gw15b-canapijson-observations-2026-11-10.md)
+
+<!-- Energy and MQTT portfolio update: 2026-11-26 -->
+
+### hm2mqtt — Battery Communication Diagnostics
+
+**Open Source · TypeScript · Node.js · MQTT Discovery · Home Assistant · ARM64 · Observability**
+
+Investigated 318 communication timeout warnings over ten days on a Marstek Jupiter C Plus installation and developed optional, read-only communication diagnostics to make device communication behavior observable directly in Home Assistant.
+
+The proposed implementation introduces no additional hardware polling or device control commands and remains disabled by default.
+
+**Engineering milestone: Five diagnostic entities and comprehensive automated validation**
+
+| Validation | Result |
+| --- | --- |
+| Unit tests | **990 passed** |
+| Additional unit tests | **39** |
+| Unit test suites | 28 passed |
+| Communication diagnostics coverage | 100% |
+| Communication discovery coverage | 100% |
+| Home Assistant E2E tests | 8 passed |
+| Add-on configuration tests | 5 passed |
+| Discovery baseline families | 20 |
+| Discovery upgrade safety | Passed |
+| Lint, formatting and build | Passed |
+
+Six optional firmware-emulator tests were skipped.
+
+<details>
+<summary><strong>Explore hm2mqtt architecture, hardware validation & performance benchmarks</strong></summary>
+
+**Key engineering contributions**
+
+- **Root cause investigation:** Analyzed recurring communication timeout warnings on a real Marstek Jupiter C Plus installation.
+- **Observability:** Introduced five diagnostic entities covering communication timeouts, consecutive timeouts, received device messages and timestamps of the latest message and timeout.
+- **MQTT architecture:** Independent per-device statistics, retained state, retained discovery, reconnect support and discovery lifecycle management.
+- **Backward compatibility:** Optional activation, disabled by default, without changing existing polling or device controls.
+- **Home Assistant integration:** Add-on configuration support, English and German translations, and documentation.
+- **Regression testing:** Expanded automated coverage and validated discovery upgrade safety.
+- **Performance engineering:** Compared upstream, disabled and enabled configurations across two Node.js container environments.
+
+**Initial real-hardware validation**
+
+| Component | Environment |
+| --- | --- |
+| Hardware | Marstek Jupiter C Plus (JPLS-8H) |
+| Firmware | 143.39.217.110 |
+| Host | Raspberry Pi 5 / ARM64 |
+| Deployment | Docker Compose |
+| Smart home | Home Assistant Container |
+
+During initial operation, all five diagnostic entities appeared under the existing Home Assistant device. The timeout counter matched observed warnings, and the consecutive timeout counter returned to zero after natural communication recovery.
+
+**Initial memory benchmark**
+
+18 benchmark runs using three simulated devices, two-second polling and 120-second measurement windows.
+
+| Runtime | Upstream RSS | Diagnostics disabled | Diagnostics enabled |
+| --- | --- | --- | --- |
+| Node.js 24 Debian | 84.406 MiB | 86.078 MiB | 86.234 MiB |
+| Node.js 26 Alpine | 78.250 MiB | 79.688 MiB | 80.031 MiB |
+
+Observed median RSS overhead with diagnostics enabled was approximately **2.2%** compared with upstream.
+
+**Validation scope:** Hardware observations and benchmarks refer to the initial implementation before the final discovery lifecycle improvements. Extended operation and final-revision validation remain outstanding. Short benchmarks do not establish long-term memory leak freedom. Received messages are not equivalent to successful request-response pairs.
+
+</details>
+
+**Status:** Submitted upstream as a draft proposal for maintainer feedback. Not yet represented as an accepted upstream feature.
+
+**Expected impact:** Improved visibility into battery communication reliability, easier troubleshooting and more actionable local energy-system diagnostics without increasing hardware polling.
+
+[**Explore upstream PR #490 →**](https://github.com/tomquist/hm2mqtt/pull/490)
+
+### GroBro — Secure MQTT & Solar Infrastructure
+
+**Open Source · Python · MQTT · TLS · PKI · Mosquitto · Docker Compose · Growatt · Raspberry Pi**
+
+Developed four independent upstream proposals focused on secure MQTT communication, reproducible infrastructure deployment and improved developer experience for Growatt inverter integrations.
+
+The work addresses authenticated MQTT communication, certificate lifecycle management, network troubleshooting and optional certificate and hostname verification.
+
+| Upstream contribution | Focus |
+| --- | --- |
+| [**PR #244 — Authenticated deployment**](https://github.com/robertzaage/GroBro/pull/244) | Docker Compose deployment with authenticated source and target MQTT brokers |
+| [**PR #245 — TLS certificate renewal**](https://github.com/robertzaage/GroBro/pull/245) | DNS-01 issuance, certificate renewal and Mosquitto reload documentation |
+| [**PR #246 — Troubleshooting guide**](https://github.com/robertzaage/GroBro/pull/246) | MQTT connectivity, DNS, gateway visibility, authentication and discovery |
+| [**PR #247 — TLS verification**](https://github.com/robertzaage/GroBro/pull/247) | Optional certificate and hostname verification with system or custom CA trust |
+
+<details>
+<summary><strong>Explore GroBro security architecture, testing & infrastructure</strong></summary>
+
+**Key engineering contributions**
+
+- **Secure MQTT infrastructure:** Dedicated TLS-enabled source broker and separate authenticated Home Assistant target broker.
+- **Transport security:** Proposed explicit certificate and hostname verification using system trust stores or custom PEM CA bundles.
+- **Independent configuration:** Separate security settings for source and target MQTT clients.
+- **Fail-closed verification:** Invalid verification settings must not silently downgrade to insecure TLS.
+- **Certificate lifecycle:** DNS-01 certificate issuance, renewal dry runs, certificate-chain inspection and broker reload procedures.
+- **Backward compatibility:** Existing plaintext and legacy TLS defaults preserved; secure verification requires explicit activation.
+- **Developer experience:** Reproducible deployment examples and structured troubleshooting documentation.
+- **Automated testing:** Added regression tests for secure SSL contexts, custom CA handling, missing CA failures and independent broker configuration.
+
+**Validation**
+
+- Raspberry Pi 5 / ARM64 deployment observations.
+- TLS broker handshakes and authenticated broker logins.
+- DNS-01 certificate issuance and renewal dry run.
+- Local Ruff and full pytest suite passed for the proposed TLS implementation.
+
+**Validation scope:** Full end-to-end inverter telemetry, generalized deployment examples and complete runtime validation remain outstanding. The four contributions are upstream proposals, not claimed as merged or released.
+
+</details>
+
+**Expected impact:** More secure, maintainable and reproducible local solar-energy integrations, with clearer installation and troubleshooting workflows.
+
+[**Explore GroBro contributions →**](https://github.com/robertzaage/GroBro/pulls?q=is%3Apr+author%3AChristophKomenda)
 
 ### Tado Hijack — Climate Control & Upstream Contribution
 
@@ -456,8 +576,9 @@ I apply the same user-centered approach to technical products and developer expe
 | **E-Commerce & CMS** | WordPress, Elementor, WooCommerce, Shopify, Salesforce Commerce Cloud |
 | **SEO & Optimization** | Technical SEO, Schema.org, Core Web Vitals, PageSpeed, conversion rate optimization (CRO) |
 | **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
-| **Software Development & Testing** | Python, asyncio, API integration, protocol analysis, automated regression testing, Git, GitHub |
-| **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, Ethernet / HomePlug, RFC2217, HPGL, REST APIs, Nginx, Cloudflare |
+| **Software Development & Testing** | Python, TypeScript, Node.js, asyncio, API integration, protocol analysis, automated regression testing, Git, GitHub |
+| **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, TLS / PKI, Mosquitto, Ethernet / HomePlug, RFC2217, HPGL, REST APIs, Nginx, Cloudflare |
+| **Observability & Performance Engineering** | Communication diagnostics, MQTT lifecycle management, memory benchmarking, regression coverage, hardware validation |
 | **CI/CD & Release Engineering** | GitHub Actions, native multi-architecture Docker builds, versioned upstream imports, SHA-256 integrity checks, reviewable release automation |
 | **Developer Experience & Collaboration** | Technical documentation, installation UX, upstream contributions, maintainer feedback, community-driven development |
 
