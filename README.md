@@ -27,6 +27,8 @@ My work connects UX/UI, frontend engineering, e-commerce, product thinking and m
 | **Make hardware easier to install and use** | [Pironman](#pironman-5--5-max--home-assistant-integration) — HACS default acceptance and independently tested HAOS installation improvements; [SunFounder community listing](https://github.com/sunfounder/home-assistant-addon/pull/27) |
 | **Understand heating-system behavior** | [Weishaupt](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) — 24 read-only sensors across three merged upstream PRs |
 | **Diagnose intermittent battery communication failures** | [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) — five proposed diagnostic entities, 40 additional unit tests and natural recovery observed on hardware; [open PR #490](https://github.com/tomquist/hm2mqtt/pull/490) |
+| **Make Bluetooth devices easier to configure and integrate** | [Sendspin](#sendspin-bluetooth-bridge--ux--hardware-performance) — configuration UX and hardware-validated adapter resolution; [Apple BLE](#habluetooth--apple-ble--native-bluetooth-reception) — proposed optional native Bluetooth reception |
+| **Improve heating setpoint precision** | [Tado Hijack](#tado-hijack--climate-control--upstream-contribution) — temperature-step correction implemented upstream in dev.17 |
 
 *Evidence matters: I distinguish merged contributions, hardware-tested implementations and proposals still under review.*
 
@@ -44,6 +46,9 @@ My work connects UX/UI, frontend engineering, e-commerce, product thinking and m
 | [**Weishaupt upstream contributions**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) | Three merged contributions adding 24 read-only sensors |
 | **Inkcut upstream contributions** — [#450](https://github.com/inkcut/inkcut/pull/450) · [#451](https://github.com/inkcut/inkcut/pull/451) | Two upstream proposals for network serial transport and native device support; physical pen-plot validation |
 | **Energy monitoring & MQTT security** — [hm2mqtt #490](https://github.com/tomquist/hm2mqtt/pull/490) · [GroBro #244–#247](https://github.com/robertzaage/GroBro/pulls?q=is%3Apr+author%3AChristophKomenda) | Proposed communication diagnostics and secure MQTT deployment improvements, supported by automated tests, ARM64 deployment observations and benchmarks |
+| [**Tado Hijack #217**](https://github.com/banter240/tado_hijack/pull/217) | Temperature-step correction implemented upstream in dev.17, as confirmed by the maintainer |
+| **Sendspin Bluetooth Bridge** — [#605](https://github.com/trudenboy/sendspin-bt-bridge/pull/605) · [#606](https://github.com/trudenboy/sendspin-bt-bridge/pull/606) | Two open proposals addressing configuration UX and Bluetooth controller resolution, with focused tests and real-hardware benchmarks |
+| **Native Apple BLE reception** — [habluetooth #662](https://github.com/Bluetooth-Devices/habluetooth/pull/662) · [Apple BLE #6](https://github.com/hudsonbrendon/ha-apple-ble/pull/6) | Coordinated API and integration proposals, validated with local and remote Bluetooth reception |
 
 *The SunFounder IR add-on remains community-maintained, not officially supported by the manufacturer.*
 
@@ -67,10 +72,11 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | **Network monitoring & MQTT** | Powerline2MQTT: three adapters and **31 validated Home Assistant entities** | [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) |
 | **Release engineering & developer experience** | Three HAOS app packages, automated upstream synchronization, SHA-256 integrity checks and five native architecture build targets | [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
+| **Bluetooth & system integration** | Native BLE callback proposals, real AirPods reception, Bluetooth controller diagnostics and bounded performance caching | [Sendspin](#sendspin-bluetooth-bridge--ux--hardware-performance) · [Apple BLE](#habluetooth--apple-ble--native-bluetooth-reception) |
 
 **For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
 
-**Explore selected work:** [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) · [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
+**Explore selected work:** [Sendspin](#sendspin-bluetooth-bridge--ux--hardware-performance) · [Apple BLE](#habluetooth--apple-ble--native-bluetooth-reception) · [Tado Hijack](#tado-hijack--climate-control--upstream-contribution) · [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) · [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
 
 </details>
 
@@ -207,12 +213,12 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 | Burner target output | `0x2542` | Controller-matched percentage |
 | Blower control signal | `0x257E` | Controller-matched percentage |
 
-**Upstream contribution snapshot — November 23, 2026**
+**Upstream contribution snapshot — November 26, 2026**
 
 | Project | Status | Contributions |
 | --- | --- | --- |
 | [kraiz/hassio-weishaupt](https://github.com/kraiz/hassio-weishaupt) | **3 merged** | [#21](https://github.com/kraiz/hassio-weishaupt/pull/21), [#22](https://github.com/kraiz/hassio-weishaupt/pull/22), [#24](https://github.com/kraiz/hassio-weishaupt/pull/24) |
-| [JS-DE-Tech/hacs-weishaupt-lan](https://github.com/JS-DE-Tech/hacs-weishaupt-lan) | **6 open** | [#9–#14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pulls?q=is%3Apr+author%3AChristophKomenda) |
+| [JS-DE-Tech/hacs-weishaupt-lan](https://github.com/JS-DE-Tech/hacs-weishaupt-lan) | **7 open** | [#9–#14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pulls?q=is%3Apr+author%3AChristophKomenda), [#18](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/18) |
 | [BorgNumberOne/Weishaupt_CanApiJson](https://github.com/BorgNumberOne/Weishaupt_CanApiJson) | **2 open** | [#9](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/9), [#10](https://github.com/BorgNumberOne/Weishaupt_CanApiJson/pull/10) |
 
 **Validation scope:** Research findings are based on one WTC-GW 15-B installation. Additional device models, firmware versions and provisional register interpretations require further validation. Long-term polling stability and live integration testing of the newly merged WTC sensors remain outstanding.
@@ -359,12 +365,142 @@ Investigated a temperature-setting issue in Tado Hijack v5.13.0 using a Home Ass
 
 </details>
 
-**Status:** [Upstream PR #217](https://github.com/banter240/tado_hijack/pull/217) is open as of November 25, 2026. The original behavior was reproduced on real hardware; the proposed fix has not yet been validated on live Tado hardware.
+**Upstream milestone — implemented in dev.17:** The maintainer confirmed implementation of the reported temperature-step correction on November 26, 2026, following [PR #217](https://github.com/banter240/tado_hijack/pull/217). The PR was closed rather than directly merged. Live hardware validation of the upstream implementation remains outstanding.
 
-**Expected impact:** More predictable temperature control and alignment between the Home Assistant interface and the values sent to the heating system.
+**Intended impact:** More predictable temperature control and alignment between the Home Assistant interface and the values sent to the heating system.
 
 [**Explore upstream contribution →**](https://github.com/banter240/tado_hijack/pull/217)
 
+
+<!-- Bluetooth engineering update: 2026-11-26 -->
+
+### Sendspin Bluetooth Bridge — UX & Hardware Performance
+
+**Open Source · JavaScript · Python · Bluetooth · BlueZ · D-Bus · Linux · Docker · Performance Engineering**
+
+Investigated two independent issues while deploying a local Bluetooth audio endpoint for Music Assistant on Raspberry Pi 5.
+
+The resulting upstream contributions address both configuration UX and Bluetooth controller identity resolution.
+
+| Contribution | Outcome |
+| --- | --- |
+| [PR #605 — Manual device registration](https://github.com/trudenboy/sendspin-bt-bridge/pull/605) | Prevents delegated click-event arguments from incorrectly populating the Bluetooth MAC address field. |
+| [PR #606 — Default adapter resolution](https://github.com/trudenboy/sendspin-bt-bridge/pull/606) | Resolves the actual default Bluetooth controller and introduces bounded caching to reduce repeated synchronous hardware queries. |
+
+<details>
+<summary><strong>Explore Sendspin root cause analysis, regression tests & performance benchmarks</strong></summary>
+
+**Frontend and configuration UX — PR #605**
+
+- Reproduced an invalid `[object PointerEvent]` value in the MAC address input during manual device registration.
+- Traced the issue to argument forwarding in the delegated JavaScript action dispatcher.
+- Introduced a narrowly scoped action wrapper that preserves explicit device-registration calls.
+- Added a focused automated regression test and validated JavaScript syntax.
+
+**Bluetooth controller identity — PR #606**
+
+- Reproduced an unresolved default HCI identity despite an available Bluetooth controller.
+- Mapped the actual BlueZ controller MAC address to its kernel HCI identity.
+- Preserved explicit adapter configuration and default command scope.
+- Avoided assuming that the default controller is always `hci0`.
+- Introduced a five-second successful-resolution cache and a one-second failed-resolution cache.
+- Added 12 focused regression tests covering controller changes, missing mappings, delayed availability and cache behavior.
+
+**Measured performance on Raspberry Pi 5**
+
+| Scenario | Measured time |
+| --- | ---: |
+| Uncached dynamic resolution — median | 11.255 ms |
+| Cold cached implementation | 14.001 ms |
+| Warm cache — median of 1,000 lookups | 0.000370 ms |
+| Warm cache — maximum | 0.004204 ms |
+| Refresh after cache expiration | 15.570 ms |
+
+The warm-cache median was approximately **30,400 times lower** than the previously measured uncached median. This is a microbenchmark of adapter lookups, not an overall application speedup.
+
+**Hardware validation**
+
+- Raspberry Pi 5 / ARM64, Debian 13, Linux 6.18.60 and BlueZ 5.82.
+- Sendspin Bluetooth Bridge v2.76.6 and Music Assistant 2.10.9.
+- Wavemaster CUBE MINI Bluetooth speaker.
+- Concurrent ESPHome-compatible Bluetooth proxy operation.
+- Successful resolution of the real controller and its D-Bus device path.
+- Active Bluetooth playback before and after the isolated test.
+- No production container restarts or installed application-file changes.
+- All 12 focused adapter regression tests passed; Ruff and formatting checks passed.
+
+</details>
+
+**Status:** Both upstream PRs are open and submitted for review as of November 26, 2026.
+
+**Validation scope:** The actual patched adapter module was tested in a separate process within the installed v2.76.6 container. Full current-main CI, concurrent cache access and end-to-end AVRCP validation remain outstanding. Full browser UI validation of PR #605 is also pending.
+
+**Impact:** Reduces Bluetooth configuration friction and proposes a more reliable, efficient controller identity resolution mechanism.
+
+[**Frontend contribution #605**](https://github.com/trudenboy/sendspin-bt-bridge/pull/605) · [**Bluetooth contribution #606**](https://github.com/trudenboy/sendspin-bt-bridge/pull/606)
+
+
+### habluetooth & Apple BLE — Native Bluetooth Reception
+
+**Open Source · Python · Cython · Bluetooth Low Energy · Home Assistant · BlueZ · API Design · ARM64**
+
+Developed two coordinated upstream proposals to enable optional native reception of Apple proximity-pairing advertisements in Home Assistant.
+
+The architecture preserves the existing Bluetooth noise-filtering behavior while offering interested integrations an explicit opt-in mechanism.
+
+| Project | Contribution |
+| --- | --- |
+| [habluetooth PR #662](https://github.com/Bluetooth-Devices/habluetooth/pull/662) | Proposed an opt-in callback API for selected filtered Apple advertisements. |
+| [Apple BLE PR #6](https://github.com/hudsonbrendon/ha-apple-ble/pull/6) | Proposed native advertisement reception through the optional habluetooth API, retaining compatibility with existing ESPHome-based reception. |
+
+<details>
+<summary><strong>Explore Bluetooth architecture, compatibility & hardware validation</strong></summary>
+
+**Bluetooth manager API**
+
+- Preserved the existing Apple advertisement pre-filter and normal discovery behavior.
+- Introduced optional subscriptions for matching filtered Apple advertisements.
+- Supported independent subscriptions and idempotent cancellation.
+- Isolated subscriber exceptions.
+- Preserved existing advertisement history and per-address callbacks.
+- Synchronized Python and Cython declarations without introducing additional runtime dependencies.
+
+**Integration compatibility**
+
+- Retained normal Home Assistant Bluetooth callbacks.
+- Used capability detection for the proposed optional native API.
+- Preserved the existing ESPHome tap when the optional API is unavailable.
+- Avoided automatic installation of a patched dependency.
+
+**Automated validation**
+
+| Test environment | Result |
+| --- | --- |
+| Patched habluetooth 7.1.2 | 46 tests passed; 97% reported coverage |
+| Standard habluetooth 7.1.3 | 46 tests passed; 97% reported coverage |
+| Native callback helper | 100% statement coverage |
+| Additional isolated tests | 22 |
+
+**Physical hardware validation**
+
+- Home Assistant Container 2026.11.1 on Raspberry Pi 5 / ARM64.
+- Python 3.14.10 and BlueZ 5.82.
+- Apple AirPods (2nd generation).
+- Native local Bluetooth reception.
+- Remote Raspberry Pi ESPHome-compatible Bluetooth proxy reception.
+- Successful publication of battery and charging entities.
+- Reproducible custom Docker image with compiled ARM64 Cython support.
+- Successful validation following container recreation.
+
+</details>
+
+**Status:** Both proposals are open and submitted for review as of November 26, 2026. The habluetooth proposal currently requires merge-conflict resolution. The Apple BLE proposal depends on acceptance and availability of the upstream API.
+
+**Validation scope:** Hardware testing used a locally patched Bluetooth manager and integration. Official upstream availability, broader scanner compatibility and complete Home Assistant lifecycle validation remain outstanding.
+
+**Impact:** Establishes a proposed integration path for native Apple BLE reception without globally relaxing existing advertisement filtering.
+
+[**habluetooth API proposal #662**](https://github.com/Bluetooth-Devices/habluetooth/pull/662) · [**Apple BLE integration proposal #6**](https://github.com/hudsonbrendon/ha-apple-ble/pull/6)
 
 ### Inkcut — Network Serial Transport & Plotter Integration
 
@@ -604,9 +740,10 @@ I apply the same user-centered approach to technical products and developer expe
 | **E-Commerce & CMS** | WordPress, Elementor, WooCommerce, Shopify, Salesforce Commerce Cloud |
 | **SEO & Optimization** | Technical SEO, Schema.org, Core Web Vitals, PageSpeed, conversion rate optimization (CRO) |
 | **Analytics** | Google Analytics 4, Google Tag Manager, event tracking and performance analysis |
-| **Software Development & Testing** | Python, TypeScript, Node.js, asyncio, API integration, protocol analysis, automated regression testing, Git, GitHub |
+| **Software Development & Testing** | Python, TypeScript, Node.js, Cython, asyncio, API integration, protocol analysis, automated regression testing, Git, GitHub |
 | **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, TLS / PKI, Mosquitto, Ethernet / HomePlug, RFC2217, HPGL, REST APIs, Nginx, Cloudflare |
-| **Observability & Performance Engineering** | Communication diagnostics, MQTT lifecycle management, memory benchmarking, regression coverage, hardware validation |
+| **Bluetooth & Hardware Integration** | Bluetooth LE, BlueZ, D-Bus, HCI controller identity, Bluetooth proxies, advertisement filtering, PipeWire |
+| **Observability & Performance Engineering** | Communication diagnostics, MQTT lifecycle management, memory and latency benchmarking, bounded caching, regression coverage, hardware validation |
 | **CI/CD & Release Engineering** | GitHub Actions, native multi-architecture Docker builds, versioned upstream imports, SHA-256 integrity checks, reviewable release automation |
 | **Developer Experience & Collaboration** | Technical documentation, installation UX, upstream contributions, maintainer feedback, community-driven development |
 
