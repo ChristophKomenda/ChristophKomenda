@@ -1,15 +1,39 @@
 
 # Hi, I'm Christoph Komenda
 
-**UX/UI Designer · Frontend Developer · E-Commerce & Open Source Contributor**
+**UX/UI Designer · Frontend Developer · Digital Products · E-Commerce & Open Source**
 
-I design and build intuitive digital experiences where **user-centered design, frontend engineering and measurable outcomes** meet — from e-commerce journeys to locally integrated hardware.
+I design and build **user-centered digital products that solve real-world problems** — from complex e-commerce journeys to local-first IoT integrations.
 
-I help businesses make complex digital customer journeys easier to navigate, and build local-first software that makes hardware easier to use and maintain. My work combines **UX, frontend engineering, e-commerce and open-source development**.
+My work connects UX/UI, frontend engineering, e-commerce, product thinking and measurable outcomes. I help businesses make digital customer journeys easier to navigate and build open-source software that makes hardware easier to use, monitor and maintain.
 
-[**Portfolio**](https://christophkomenda.de) · [**Resume / CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Open-source projects**](https://github.com/ChristophKomenda?tab=repositories)
+[**View my CV**](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) · [**Explore my portfolio**](https://christophkomenda.de) · [**Get in touch**](#lets-build-something-useful) · [Open-source repositories](https://github.com/ChristophKomenda?tab=repositories)
+
+**Open to opportunities in UX/UI, frontend engineering, e-commerce and digital product teams, including roles at the intersection of design and technology.**
+
+## Start here
+
+| For you | Explore |
+| --- | --- |
+| **Recruiters & hiring managers** | [Experience](#background) · [Skills](#skills--technologies) · [CV](https://christophkomenda.de/wp-content/uploads/2026/10/CV_Christoph_Komenda.pdf) |
+| **Product & e-commerce teams** | [Client projects](#dnatestch--uxui--e-commerce-relaunch) · [How I work](#how-i-work) |
+| **Engineers & maintainers** | [Pironman integration](#pironman-5--5-max--home-assistant-integration) · [Upstream contributions](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
+
+## Real-world problems. Practical solutions.
+
+| User need | My contribution & evidence |
+| --- | --- |
+| **Make complex purchasing decisions easier** | [DNATest.ch](#dnatestch--uxui--e-commerce-relaunch) — clearer product information, navigation and conversion-oriented journeys |
+| **Make hardware easier to install and use** | [Pironman](#pironman-5--5-max--home-assistant-integration) — HACS default acceptance and independently tested HAOS installation improvements; [SunFounder community listing](https://github.com/sunfounder/home-assistant-addon/pull/27) |
+| **Understand heating-system behavior** | [Weishaupt](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) — 24 read-only sensors across three merged upstream PRs |
+| **Diagnose intermittent battery communication failures** | [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) — five proposed diagnostic entities, 40 additional unit tests and natural recovery observed on hardware; [open PR #490](https://github.com/tomquist/hm2mqtt/pull/490) |
+
+*Evidence matters: I distinguish merged contributions, hardware-tested implementations and proposals still under review.*
 
 <!-- Profile UX refresh: audience navigation and verified milestones (2026-11-25) -->
+
+<details>
+<summary><strong>More verified milestones & engineering evidence</strong></summary>
 
 ### Selected milestones
 
@@ -39,7 +63,7 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | **Home Assistant & Python** | Pironman 5 integration accepted into **HACS default**; IR add-on listed in **SunFounder's official documentation** | [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [SunFounder](#sunfounder--upstream-contributions) |
 | **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
 | **Network serial & hardware integration** | RFC2217 transport prototype, six new regression tests and physical SVG pen plotting | [Inkcut](#inkcut--network-serial-transport--plotter-integration) |
-| **Energy monitoring & secure IoT** | Five proposed battery communication diagnostics, 990 passing unit tests in hm2mqtt validation and four GroBro proposals covering TLS security and deployment | [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) |
+| **Energy monitoring & secure IoT** | Five proposed battery communication diagnostics, 991 passing unit tests in hm2mqtt validation and four GroBro proposals covering TLS security and deployment | [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) |
 | **Network monitoring & MQTT** | Powerline2MQTT: three adapters and **31 validated Home Assistant entities** | [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) |
 | **Release engineering & developer experience** | Three HAOS app packages, automated upstream synchronization, SHA-256 integrity checks and five native architecture build targets | [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
@@ -48,11 +72,43 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 
 **Explore selected work:** [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) · [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
 
+</details>
+
 ---
 
 ## Selected work
 
 *Selected projects, outcomes and evidence. Expand technical sections when you want more detail.*
+
+### DNATest.ch — UX/UI & E-Commerce Relaunch
+
+**Focus: Making complex product decisions clearer and easier to navigate.**
+
+**UX/UI · WordPress · WooCommerce · HTML · CSS · JavaScript · SEO · CRO**
+
+Redesigned and optimized a Swiss DNA-testing e-commerce experience, focusing on clarity, trust, accessibility of product information and the path from discovery to purchase.
+
+- Reworked content hierarchy, navigation, product presentation and calls to action
+- Improved responsive layouts and reusable frontend components
+- Implemented structured data and technical SEO enhancements
+- Focused on page performance, usability and conversion-oriented journeys
+
+[**Explore DNATest.ch →**](https://dnatest.ch)
+
+### SR Brennholzhandel — Local Business Website Optimization
+
+**Focus: Helping local customers find products, delivery information and contact options quickly.**
+
+**Web Design · WordPress · Frontend · Local SEO · GA4 · CRO**
+
+Built and optimized a regional firewood supplier's digital presence to make products, delivery details and contact options easier to understand and act on.
+
+- Improved information architecture and mobile user journeys
+- Introduced prominent contact options and conversion-focused calls to action
+- Implemented structured data and analytics event tracking
+- Worked on frontend performance and technical SEO
+
+[**Visit SR Brennholzhandel →**](https://sr-brennholz.de)
 
 ### Pironman 5 / 5 Max — Home Assistant Integration
 
@@ -181,9 +237,11 @@ The proposed implementation introduces no additional hardware polling or device 
 
 | Validation | Result |
 | --- | --- |
-| Unit tests | **990 passed** |
-| Additional unit tests | **39** |
+| Unit tests | **991 passed** |
+| Additional unit tests | **40** |
 | Unit test suites | 28 passed |
+| Overall statement coverage | 91.59% |
+| Automated review follow-up | All three initial findings addressed; no new actionable findings |
 | Communication diagnostics coverage | 100% |
 | Communication discovery coverage | 100% |
 | Home Assistant E2E tests | 8 passed |
@@ -199,7 +257,7 @@ Six optional firmware-emulator tests were skipped.
 
 **Key engineering contributions**
 
-- **Root cause investigation:** Analyzed recurring communication timeout warnings on a real Marstek Jupiter C Plus installation.
+- **Problem investigation:** Analyzed recurring communication timeout warnings on a real Marstek Jupiter C Plus installation without claiming to have established their root cause.
 - **Observability:** Introduced five diagnostic entities covering communication timeouts, consecutive timeouts, received device messages and timestamps of the latest message and timeout.
 - **MQTT architecture:** Independent per-device statistics, retained state, retained discovery, reconnect support and discovery lifecycle management.
 - **Backward compatibility:** Optional activation, disabled by default, without changing existing polling or device controls.
@@ -234,7 +292,7 @@ Observed median RSS overhead with diagnostics enabled was approximately **2.2%**
 
 </details>
 
-**Status:** Submitted upstream as a draft proposal for maintainer feedback. Not yet represented as an accepted upstream feature.
+**Status (November 26, 2026):** Open upstream PR, ready for maintainer review. All three initial CodeRabbit findings were addressed in [commit ae6d1a0](https://github.com/ChristophKomenda/hm2mqtt/commit/ae6d1a0); the follow-up automated review reported no new actionable findings and assessed merge risk as minimal. The 991 unit tests and eight E2E tests passed locally after the review fixes. This is not a maintainer approval or a merged feature; final hardware and benchmark validation remain outstanding.
 
 **Expected impact:** Improved visibility into battery communication reliability, easier troubleshooting and more actionable local energy-system diagnostics without increasing hardware polling.
 
@@ -338,36 +396,6 @@ Investigated a limitation in Inkcut's serial transport while bringing a legacy R
 **Expected impact:** Makes legacy serial hardware more accessible in local Linux workflows and lays a foundation for network-connected plotting across compatible devices.
 
 [**Network transport PR →**](https://github.com/inkcut/inkcut/pull/450) · [Device profile PR](https://github.com/inkcut/inkcut/pull/451)
-
-### DNATest.ch — UX/UI & E-Commerce Relaunch
-
-**Focus: Making complex product decisions clearer and easier to navigate.**
-
-**UX/UI · WordPress · WooCommerce · HTML · CSS · JavaScript · SEO · CRO**
-
-Redesigned and optimized a Swiss DNA-testing e-commerce experience, focusing on clarity, trust, accessibility of product information and the path from discovery to purchase.
-
-- Reworked content hierarchy, navigation, product presentation and calls to action
-- Improved responsive layouts and reusable frontend components
-- Implemented structured data and technical SEO enhancements
-- Focused on page performance, usability and conversion-oriented journeys
-
-[**Explore DNATest.ch →**](https://dnatest.ch)
-
-### SR Brennholzhandel — Local Business Website Optimization
-
-**Focus: Helping local customers find products, delivery information and contact options quickly.**
-
-**Web Design · WordPress · Frontend · Local SEO · GA4 · CRO**
-
-Built and optimized a regional firewood supplier's digital presence to make products, delivery details and contact options easier to understand and act on.
-
-- Improved information architecture and mobile user journeys
-- Introduced prominent contact options and conversion-focused calls to action
-- Implemented structured data and analytics event tracking
-- Worked on frontend performance and technical SEO
-
-[**Visit SR Brennholzhandel →**](https://sr-brennholz.de)
 
 ### SunFounder — Upstream Contributions
 
@@ -603,7 +631,7 @@ I enjoy working at the intersection of **design, technology and business outcome
 
 ## Let's Build Something Useful
 
-I'm open to **UX/UI, frontend and e-commerce opportunities**, **selected freelance collaborations**, and **open-source contributions**.
+I'm open to **UX/UI, frontend engineering, e-commerce and digital product opportunities**, **selected freelance collaborations**, and **open-source contributions** — especially work connecting user needs, technical implementation and business outcomes.
 
 If you're building a product, improving a digital customer journey or working on a project where design and engineering meet, I'd be happy to connect.
 
