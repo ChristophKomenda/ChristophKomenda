@@ -869,3 +869,9 @@ If you're building a product, improving a digital customer journey or working on
 | Pironman integration and hardware testing | [Join the community discussion](https://github.com/ChristophKomenda/pironman5-homeassistant-container/discussions) |
 
 *Design thoughtfully. Build practically. Improve continuously.*
+
+<!-- infrastructure-app-store:begin -->
+### Home Assistant community apps
+
+[Community App Store](https://github.com/ChristophKomenda/home-assistant-apps) — four original local-first apps, including the experimental [Infrastructure HA Monitor](https://github.com/ChristophKomenda/infrastructure-ha-monitor) for cross-host MQTT correlation.
+<!-- infrastructure-app-store:end -->
