@@ -29,6 +29,7 @@ My work connects UX/UI, frontend engineering, e-commerce, product thinking and m
 | **Diagnose intermittent battery communication failures** | [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) — five proposed diagnostic entities, 40 additional unit tests and natural recovery observed on hardware; [open PR #490](https://github.com/tomquist/hm2mqtt/pull/490) |
 | **Make Bluetooth devices easier to configure and integrate** | [Sendspin](#sendspin-bluetooth-bridge--ux--hardware-performance) — configuration UX and hardware-validated adapter resolution; [Apple BLE](#habluetooth--apple-ble--native-bluetooth-reception) — proposed optional native Bluetooth reception |
 | **Improve heating setpoint precision** | [Tado Hijack](#tado-hijack--climate-control--upstream-contribution) — temperature-step correction implemented upstream in dev.17 |
+| **Investigate intermittent infrastructure outages** | [Infrastructure HA Monitor](#infrastructure-ha-monitor--distributed-infrastructure-observability) — distributed monitoring, persistent incident history and 69 passing automated tests |
 
 *Evidence matters: I distinguish merged contributions, hardware-tested implementations and proposals still under review.*
 
@@ -49,6 +50,7 @@ My work connects UX/UI, frontend engineering, e-commerce, product thinking and m
 | [**Tado Hijack #217**](https://github.com/banter240/tado_hijack/pull/217) | Temperature-step correction implemented upstream in dev.17, as confirmed by the maintainer |
 | **Sendspin Bluetooth Bridge** — [#605](https://github.com/trudenboy/sendspin-bt-bridge/pull/605) · [#606](https://github.com/trudenboy/sendspin-bt-bridge/pull/606) | Two open proposals addressing configuration UX and Bluetooth controller resolution, with focused tests and real-hardware benchmarks |
 | **Native Apple BLE reception** — [habluetooth #662](https://github.com/Bluetooth-Devices/habluetooth/pull/662) · [Apple BLE #6](https://github.com/hudsonbrendon/ha-apple-ble/pull/6) | Coordinated API and integration proposals, validated with local and remote Bluetooth reception |
+| [**Infrastructure HA Monitor v1.0.0**](https://github.com/ChristophKomenda/infrastructure-ha-monitor/releases/tag/v1.0.0) | Two-host live deployment, 69 passing tests and successful GitHub Actions CI (November 27, 2026) |
 
 *The SunFounder IR add-on remains community-maintained, not officially supported by the manufacturer.*
 
@@ -69,6 +71,7 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 | **Protocol engineering** | **3 merged upstream PRs** adding **24 read-only Weishaupt sensors** | [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) |
 | **Network serial & hardware integration** | RFC2217 transport prototype, six new regression tests and physical SVG pen plotting | [Inkcut](#inkcut--network-serial-transport--plotter-integration) |
 | **Energy monitoring & secure IoT** | Five proposed battery communication diagnostics, 991 passing unit tests in hm2mqtt validation and four GroBro proposals covering TLS security and deployment | [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) |
+| **Distributed infrastructure observability** | Two monitoring agents, persistent incident correlation and 69 passing tests | [Infrastructure HA Monitor](#infrastructure-ha-monitor--distributed-infrastructure-observability) |
 | **Network monitoring & MQTT** | Powerline2MQTT: three adapters and **31 validated Home Assistant entities** | [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) |
 | **Release engineering & developer experience** | Three HAOS app packages, automated upstream synchronization, SHA-256 integrity checks and five native architecture build targets | [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring) |
 | **Self-hosted infrastructure** | Bitcoin Pi Node with guarded storage startup and **21 optional MQTT entities** | [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) |
@@ -76,7 +79,7 @@ I work across **UX/UI, frontend and e-commerce**, and contribute to open-source 
 
 **For hiring and collaboration:** [Experience & qualifications](#background) · [Skills](#skills--technologies) · [How I work](#how-i-work) · [Get in touch](#lets-build-something-useful)
 
-**Explore selected work:** [Sendspin](#sendspin-bluetooth-bridge--ux--hardware-performance) · [Apple BLE](#habluetooth--apple-ble--native-bluetooth-reception) · [Tado Hijack](#tado-hijack--climate-control--upstream-contribution) · [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) · [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
+**Explore selected work:** [Infrastructure HA Monitor](#infrastructure-ha-monitor--distributed-infrastructure-observability) · [Sendspin](#sendspin-bluetooth-bridge--ux--hardware-performance) · [Apple BLE](#habluetooth--apple-ble--native-bluetooth-reception) · [Tado Hijack](#tado-hijack--climate-control--upstream-contribution) · [hm2mqtt](#hm2mqtt--battery-communication-diagnostics) · [GroBro](#grobro--secure-mqtt--solar-infrastructure) · [Inkcut](#inkcut--network-serial-transport--plotter-integration) · [Pironman 5](#pironman-5--5-max--home-assistant-integration) · [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) · [E-Commerce](#dnatestch--uxui--e-commerce-relaunch) · [SunFounder IR](#sunfounder--upstream-contributions) · [Powerline2MQTT](#powerline2mqtt--local-powerline-network-monitoring) · [Bitcoin Pi Node](#bitcoin-pi-node--secure-self-hosted-bitcoin-core) · [Community Apps](#home-assistant-community-apps--automated-app-distribution) · [Bitcoin Node Monitor](#bitcoin-node-monitor--local-bitcoin-core-monitoring)
 
 </details>
 
@@ -601,6 +604,38 @@ SunFounder subsequently merged PR #27, officially listing the community-maintain
 **Impact:** Translating device-specific hardware capabilities into locally usable and documented integrations, reducing installation friction, and establishing a constructive collaboration between independent open-source development and the hardware manufacturer.
 
 [**Official SunFounder community listing →**](https://github.com/sunfounder/home-assistant-addon#community-add-ons) · [Merged documentation PR #27](https://github.com/sunfounder/home-assistant-addon/pull/27) · [Original IR proposal #26](https://github.com/sunfounder/home-assistant-addon/pull/26) · [Native IR / HAIR integration](https://github.com/ChristophKomenda/pironman5-homeassistant-container/blob/main/docs/native-ir-hair.md)
+
+### Infrastructure HA Monitor — Distributed Infrastructure Observability
+
+**Open Source · Python · MQTT · SQLite · Linux · Raspberry Pi · Docker · Cloudflare · Home Assistant · GitHub Actions**
+
+Designed and developed a distributed monitoring system in response to intermittent website and Cloudflare Tunnel outages, turning real operational problems into actionable infrastructure diagnostics.
+
+**Key milestone: [v1.0.0 — Initial Public Release](https://github.com/ChristophKomenda/infrastructure-ha-monitor/releases/tag/v1.0.0), November 27, 2026**
+
+| Validation | Outcome |
+| --- | --- |
+| Live deployment | Two Raspberry Pi monitoring agents and one correlation engine |
+| Home Assistant | 159 matching entities observed through the API, 154 with known states |
+| Automated testing | 69 tests passed on both hosts; GitHub Actions CI passed |
+| Persistence | SQLite integrity verified and both hosts registered for persistent boot tracking |
+
+<details>
+<summary><strong>Explore distributed architecture, incident correlation & operational diagnostics</strong></summary>
+
+- **Network and application observability:** DNS, ICMP latency and packet loss, HTTP response times, verified public HTTPS certificates, Cloudflare Tunnel redundancy and dynamic TCP edge probes.
+- **Cross-host correlation:** Configurable two-host architecture, fresh snapshot validation and rule-based symptom classification.
+- **Persistent observability:** SQLite incident history, confirmed recovery tracking, MTTR, MTBF, uptime and measurement coverage.
+- **Host and container diagnostics:** Boot-ID changes, observed reboot counters, CPU temperature, Raspberry Pi power flags, filesystem mounts and Docker restart/OOM indicators.
+- **Deployment and security:** Native MQTT Discovery, optional certificate-verified MQTT TLS, systemd management scripts and automated CI.
+
+</details>
+
+**Validation scope:** Live deployment on two Raspberry Pi hosts. Full clean-install testing, live MQTT TLS validation and long-term stability testing remain outstanding. Correlation identifies symptoms rather than proving root cause.
+
+**Impact:** Makes intermittent infrastructure failures easier to investigate through a unified, local monitoring workflow in Home Assistant.
+
+[**Explore Infrastructure HA Monitor →**](https://github.com/ChristophKomenda/infrastructure-ha-monitor) · [v1.0.0 release](https://github.com/ChristophKomenda/infrastructure-ha-monitor/releases/tag/v1.0.0) · [CI workflows](https://github.com/ChristophKomenda/infrastructure-ha-monitor/actions)
 
 ### Powerline2MQTT — Local Powerline Network Monitoring
 
