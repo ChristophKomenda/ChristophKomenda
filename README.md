@@ -44,7 +44,9 @@ My work connects UX/UI, frontend engineering, e-commerce, product thinking and m
 | --- | --- |
 | [**HACS default repository acceptance**](https://github.com/hacs/default/pull/12242) | Independently developed integration available through HACS discovery and updates |
 | [**SunFounder community listing — merged PR #27**](https://github.com/sunfounder/home-assistant-addon/pull/27) | Manufacturer documentation recognition following independent HAOS testing and installation UX improvements (November 24, 2026) |
+| **Persistent hardware identity** — [Pironman #130](https://github.com/sunfounder/pironman5/pull/130) | Open manufacturer API proposal; 26 passing local tests, two physical hosts and live REST API validation |
 | [**Weishaupt upstream contributions**](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda) | Three merged contributions adding 24 read-only sensors |
+| **WEM-SG read reliability** — [PR #19](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/19) | Open compatibility fix; observed sensor availability improved from 50/63 to 57/63 on one installation |
 | **Inkcut upstream contributions** — [#450](https://github.com/inkcut/inkcut/pull/450) · [#451](https://github.com/inkcut/inkcut/pull/451) | Two upstream proposals for network serial transport and native device support; physical pen-plot validation |
 | **Energy monitoring & MQTT security** — [hm2mqtt #490](https://github.com/tomquist/hm2mqtt/pull/490) · [GroBro #244–#247](https://github.com/robertzaage/GroBro/pulls?q=is%3Apr+author%3AChristophKomenda) | Proposed communication diagnostics and secure MQTT deployment improvements, supported by automated tests, ARM64 deployment observations and benchmarks |
 | [**Tado Hijack #217**](https://github.com/banter240/tado_hijack/pull/217) | Temperature-step correction implemented upstream in dev.17, as confirmed by the maintainer |
@@ -142,6 +144,12 @@ It was tested with HAIR on real hardware; the IR capability remains experimental
 
 Version 1.4.0 also introduced expanded network and device diagnostics with capability-aware model detection, without claiming verified Pro Max support.
 
+**Upstream API proposal — persistent host identity**
+
+[SunFounder Pironman #130](https://github.com/sunfounder/pironman5/pull/130) proposes an optional, board-derived `device_uid` for stable third-party integration identity, including a potential Home Assistant Core integration.
+
+The existing product model identifier remains unchanged. This is an open upstream proposal, not an accepted API contract or a Core integration.
+
 **Extended HAOS support**
 
 A complementary, community-maintained IR receiver add-on extends the infrared functionality to Home Assistant OS users. Its v0.2.0 event-based architecture connects directly to the existing HACS integration, removing the need for manual installation of a separate companion integration.
@@ -201,6 +209,28 @@ Three contributions have been reviewed and merged into the upstream [kraiz/hassi
 - **Boiler sensor expansion:** Added 12 WTC sensors upstream in [PR #24](https://github.com/kraiz/hassio-weishaupt/pull/24), covering burner modulation, blower operation, pump performance and diagnostic parameters.
 - **Additional protocol research:** Proposed 13 WTC sensor candidates with regular 60-second polling in [JS-DE-Tech PR #14](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/14).
 - **Device clock diagnostics:** Proposed timezone-aware device timestamps, signed clock drift diagnostics, DST handling and fresh-register validation without additional polling or write operations in [PR #18](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/18). The published proposal reports 76 passing tests; subsequent local production-patch validation reported 87 passing tests. Broader hardware validation remains outstanding.
+- **Gateway read reliability:** Proposed reducing CanApiJson read batches from six to five parameters in [PR #19](https://github.com/JS-DE-Tech/hacs-weishaupt-lan/pull/19), preserving the existing request gap, register definitions and write behavior.
+
+**WEM-SG hardware validation — November 27, 2026**
+
+| Metric | Before | After |
+| --- | ---: | ---: |
+| Maximum read batch size | 6 | 5 |
+| Available sensors | 50/63 | 57/63 |
+| Unavailable or unknown sensors | 13 | 6 |
+| Sensor availability | 79.4% | 90.5% |
+
+- Reproduced sixth-slot register rejection on physical WEM-SG hardware.
+- Recovered previously unavailable heating and pump readings.
+- Validated heating energy against independent energy counters.
+- 64 automated tests and 24 subtests passed.
+- Added regression coverage for sixth-slot rejection.
+- Preserved existing controller write behavior.
+
+**Trade-offs and limitations:** Approximately 20% more HTTP requests for large parameter lists. Hardware validation included a Home Assistant restart. Broader firmware compatibility and isolation of the restart effect remain outstanding.
+
+**Status:** Open upstream compatibility proposal.
+
 - **Safety-first implementation:** Preserved entity identifiers, avoided unverified controller write operations and documented known hardware compatibility limitations.
 
 **Selected hardware observations**
@@ -537,6 +567,30 @@ Investigated a limitation in Inkcut's serial transport while bringing a legacy R
 [**Network transport PR →**](https://github.com/inkcut/inkcut/pull/450) · [Device profile PR](https://github.com/inkcut/inkcut/pull/451)
 
 ### SunFounder — Upstream Contributions
+
+<details>
+<summary><strong>Persistent host identity API proposal — November 27, 2026</strong></summary>
+
+[**Pironman PR #130**](https://github.com/sunfounder/pironman5/pull/130) proposes an optional persistent `device_uid` for third-party integrations.
+
+- **Stable identity:** Board-derived identifier independent of network configuration.
+- **Privacy-conscious design:** Versioned SHA-256 namespace without exposing the original hardware serial.
+- **Backward compatibility:** Existing product identifier and API fields preserved.
+- **Automated validation:** 26/26 local tests passed.
+- **Product coverage:** All seven upstream product definitions software-tested.
+- **Physical validation:** Two Raspberry Pi 5 hosts with Pironman 5 Max enclosures.
+- **REST API validation:** 20 repeated HTTP requests, service restart and existing endpoint checks.
+- **Package engineering:** Successful wheel build and isolated installation.
+- **Operational safety:** Controlled temporary deployment and verified rollback.
+
+**Validation scope:** The UID algorithm was tested across a physical reboot; the patched API was tested across a service restart. Physical HAOS testing, additional hardware variants, actual network reconfiguration and a full reboot of the patched application remain outstanding.
+
+**Identity semantics:** The pseudonymous identifier represents the Raspberry Pi host board, not the enclosure, and is not an authentication credential.
+
+**Status:** Open for maintainer review and agreement on the proposed API contract.
+
+</details>
+
 
 **Open Source · Raspberry Pi · Linux · Hardware Integration · Home Assistant · IR / LIRC · Maintainer Collaboration**
 
