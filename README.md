@@ -14,6 +14,8 @@ Open to UX/UI, frontend, e-commerce and digital product opportunities, selected 
 - **[SunFounder community listing](https://github.com/sunfounder/home-assistant-addon#community-add-ons)** — community-maintained IR add-on listed in manufacturer documentation; not manufacturer-maintained.
 - **[24 read-only Weishaupt sensors merged upstream](https://github.com/kraiz/hassio-weishaupt/pulls?q=is%3Apr+author%3AChristophKomenda)** — three merged protocol and monitoring contributions.
 
+- **[GroBro v2.8.2 — merged and released MQTT security contributions](https://github.com/robertzaage/GroBro/releases/tag/v2.8.2)** — optional TLS certificate and hostname verification and structured MQTT troubleshooting documentation.
+
 ## Start here
 
 - **Hiring & product teams:** [Professional background](#background) · [Skills](#skills--technologies) · [UX and e-commerce projects](#uxui-design-and-e-commerce)
@@ -26,6 +28,8 @@ Open to UX/UI, frontend, e-commerce and digital product opportunities, selected 
 - [Pironman 5 / 5 Max](#pironman-5--5-max--home-assistant-integration) — HACS integration and hardware usability.
 - [Infrastructure HA Monitor](#infrastructure-ha-monitor--distributed-infrastructure-observability) — distributed observability and operational diagnostics.
 - [Weishaupt WTC](#weishaupt-wtc--protocol-reverse-engineering--upstream-contributions) — hardware-validated protocol contributions.
+
+- [GroBro](#grobro--secure-mqtt--solar-infrastructure) — merged and released MQTT transport security and infrastructure contributions.
 
 Status labels summarize the evidence recorded in this profile, not a live upstream review. Proposed functionality is not presented as merged or released. Expand project details for validation scope, limitations and source links.
 
@@ -672,57 +676,80 @@ Observed median RSS overhead with diagnostics enabled was approximately **2.2%**
 
 ### GroBro — Secure MQTT & Solar Infrastructure
 
-**Status:** Proposals · validation recorded
+**Status:** Two contributions merged and released in v2.8.2 · additional deployment PR under review
 
-Secure MQTT transport and solar infrastructure deployment improvements.
+Optional MQTT certificate and hostname verification, secure deployment architecture and structured troubleshooting for local solar-energy integrations.
 
-[Explore GroBro](https://github.com/robertzaage/GroBro/pulls?q=is%3Apr+author%3AChristophKomenda)
-
+[Explore GroBro v2.8.2](https://github.com/robertzaage/GroBro/releases/tag/v2.8.2)
 
 <details>
-<summary>Project details, evidence and validation scope</summary>
+<summary>Project details, upstream milestones and validation scope</summary>
 
-**Open Source · Python · MQTT · TLS · PKI · Mosquitto · Docker Compose · Growatt · Raspberry Pi**
+**Open Source · Python · MQTT · TLS · PKI · Mosquitto · Docker Compose · Growatt · Raspberry Pi · Security Engineering**
 
-Developed four independent upstream proposals focused on secure MQTT communication, reproducible infrastructure deployment and improved developer experience for Growatt inverter integrations.
+Developed upstream contributions addressing secure MQTT communication, reproducible infrastructure deployment and developer experience for Growatt inverter integrations.
 
-The work addresses authenticated MQTT communication, certificate lifecycle management, network troubleshooting and optional certificate and hostname verification.
+The work originated from a real Raspberry Pi 5 deployment using a dedicated TLS-enabled source broker and an existing authenticated Home Assistant target broker.
 
-| Upstream contribution | Focus |
+**Upstream milestone — November 28, 2026**
+
+Two contributions were merged and published in the official [GroBro v2.8.2 release](https://github.com/robertzaage/GroBro/releases/tag/v2.8.2).
+
+| Contribution | Status | Outcome |
+| --- | --- | --- |
+| [PR #247 — MQTT TLS verification](https://github.com/robertzaage/GroBro/pull/247) | Merged and released | Optional certificate and hostname verification |
+| [PR #246 — Troubleshooting guide](https://github.com/robertzaage/GroBro/pull/246) | Merged and released | Structured network and MQTT diagnostics |
+| [PR #244 — Authenticated Compose deployment](https://github.com/robertzaage/GroBro/pull/244) | Open; maintainer feedback addressed | Updated example using the released TLS verification functionality |
+| [PR #245 — Certificate renewal](https://github.com/robertzaage/GroBro/pull/245) | Closed; discussion requested | Generic certificate lifecycle guidance proposed for community discussion |
+
+<details>
+<summary><strong>Explore security architecture, regression tests and deployment validation</strong></summary>
+
+**Transport security**
+
+- Optional certificate and hostname verification for source and target MQTT connections.
+- Independent security settings for each broker.
+- System trust stores and optional custom PEM CA bundles.
+- Fail-closed verification without automatic insecure fallback.
+- Backward compatibility with existing plaintext and legacy TLS configurations.
+- Verification remains opt-in in the released application.
+
+**Validation of PR #247**
+
+| Validation | Result |
 | --- | --- |
-| [**PR #244 — Authenticated deployment**](https://github.com/robertzaage/GroBro/pull/244) | Docker Compose deployment with authenticated source and target MQTT brokers |
-| [**PR #245 — TLS certificate renewal**](https://github.com/robertzaage/GroBro/pull/245) | DNS-01 issuance, certificate renewal and Mosquitto reload documentation |
-| [**PR #246 — Troubleshooting guide**](https://github.com/robertzaage/GroBro/pull/246) | MQTT connectivity, DNS, gateway visibility, authentication and discovery |
-| [**PR #247 — TLS verification**](https://github.com/robertzaage/GroBro/pull/247) | Optional certificate and hostname verification with system or custom CA trust |
+| Full local pytest suite | 392 passed, 1 skipped |
+| New TLS unit tests | 11 passed |
+| Reported total code coverage | 95.30% |
+| Codecov patch coverage | All modified and coverable lines covered |
+| Real Mosquitto TLS endpoint | Valid hostname accepted; incorrect hostname rejected |
+| Explicit ISRG Root X1 CA | Passed |
+| TLS 1.3 negotiation | Passed |
+| Ruff linting | Passed |
 
-<details>
-<summary><strong>Explore GroBro security architecture, testing & infrastructure</strong></summary>
+The generated SSL context was validated against a real Mosquitto 2.1.2 broker on Raspberry Pi 5 / Debian 13 / ARM64.
 
-**Key engineering contributions**
+**Deployment engineering and maintainer collaboration — PR #244**
 
-- **Secure MQTT infrastructure:** Dedicated TLS-enabled source broker and separate authenticated Home Assistant target broker.
-- **Transport security:** Proposed explicit certificate and hostname verification using system trust stores or custom PEM CA bundles.
-- **Independent configuration:** Separate security settings for source and target MQTT clients.
-- **Fail-closed verification:** Invalid verification settings must not silently downgrade to insecure TLS.
-- **Certificate lifecycle:** DNS-01 certificate issuance, renewal dry runs, certificate-chain inspection and broker reload procedures.
-- **Backward compatibility:** Existing plaintext and legacy TLS defaults preserved; secure verification requires explicit activation.
-- **Developer experience:** Reproducible deployment examples and structured troubleshooting documentation.
-- **Automated testing:** Added regression tests for secure SSL contexts, custom CA handling, missing CA failures and independent broker configuration.
+- Updated the authenticated Docker Compose example in response to maintainer feedback.
+- Enabled certificate verification for the example's source broker.
+- Added independent TLS verification settings for the target broker.
+- Introduced an optional read-only directory for public CA bundles, separate from broker private keys.
+- Resolved upstream documentation merge conflicts while preserving the current configuration reference.
+- Validated three Docker Compose configuration variants.
+- GitHub CI passed and the PR was reported mergeable with a clean merge state at the recorded snapshot.
 
-**Validation**
+**Certificate lifecycle documentation**
 
-- Raspberry Pi 5 / ARM64 deployment observations.
-- TLS broker handshakes and authenticated broker logins.
-- DNS-01 certificate issuance and renewal dry run.
-- Local Ruff and full pytest suite passed for the proposed TLS implementation.
-
-**Validation scope:** Full end-to-end inverter telemetry, generalized deployment examples and complete runtime validation remain outstanding. The four contributions are upstream proposals, not claimed as merged or released.
+Investigated DNS-01 issuance, certificate-chain inspection, renewal dry runs and Mosquitto reload procedures. The maintainer requested that the generic guidance be shared through GitHub Discussions rather than maintained in the project documentation.
 
 </details>
 
-**Expected impact:** More secure, maintainable and reproducible local solar-energy integrations, with clearer installation and troubleshooting workflows.
+**Validation scope:** SSL-context validation and Compose configuration checks do not constitute full Paho MQTT integration testing. End-to-end inverter telemetry, Home Assistant discovery and generalized deployment runtime validation remain outstanding.
 
-[**Explore GroBro contributions →**](https://github.com/robertzaage/GroBro/pulls?q=is%3Apr+author%3AChristophKomenda)
+**Impact:** Published upstream security capabilities and troubleshooting documentation that allow GroBro users to configure verified MQTT transport and investigate local connectivity problems more systematically.
+
+[**Release notes**](https://github.com/robertzaage/GroBro/releases/tag/v2.8.2) · [TLS security PR](https://github.com/robertzaage/GroBro/pull/247) · [Troubleshooting guide PR](https://github.com/robertzaage/GroBro/pull/246) · [Deployment PR](https://github.com/robertzaage/GroBro/pull/244)
 
 </details>
 
@@ -963,6 +990,80 @@ Investigated a limitation in Inkcut's serial transport while bringing a legacy R
 </details>
 
 
+### Linux Dual WAN Failover — Network Reliability & Infrastructure Engineering
+
+**Status:** Four upstream draft PRs · local validation recorded · review pending
+
+Network resilience, systemd compatibility and NetworkManager gateway discovery for Linux-based dual-WAN deployments.
+
+[Explore upstream contributions](https://github.com/fidpa/linux-dual-wan-failover/pulls?q=is%3Apr+author%3AChristophKomenda)
+
+<details>
+<summary>Project details, routing architecture and validation scope</summary>
+
+**Open Source · Bash · Linux · NetworkManager · systemd · DHCP · IPv4 Routing · Bats · ShellCheck · Raspberry Pi**
+
+Investigated operational issues in a real dual-WAN deployment using a Raspberry Pi 5, Debian 13.7, Ethernet primary connectivity and an iPhone Wi-Fi hotspot as the backup WAN.
+
+Separated the findings into four focused upstream contributions to simplify review and regression testing.
+
+| Upstream contribution | Focus |
+| --- | --- |
+| [PR #1 — systemd configuration compatibility](https://github.com/fidpa/linux-dual-wan-failover/pull/1) | Literal scalar defaults and inline-comment handling |
+| [PR #2 — Logging initialization](https://github.com/fidpa/linux-dual-wan-failover/pull/2) | Prevent premature readonly LOG_FILE declaration |
+| [PR #3 — DHCP gateway discovery](https://github.com/fidpa/linux-dual-wan-failover/pull/3) | NetworkManager DHCP fallback and emergency gateway recovery |
+| [PR #4 — WAN route metric preservation](https://github.com/fidpa/linux-dual-wan-failover/pull/4) | State-aware duplicate-route cleanup and route locking |
+
+<details>
+<summary><strong>Explore root cause analysis, routing behavior and validation</strong></summary>
+
+**Systemd configuration compatibility**
+
+- Reproduced literal shell parameter substitutions using a transient systemd EnvironmentFile test.
+- Investigated invalid state paths and metrics collector initialization failures.
+- Added configuration regression tests and scalar inline-comment normalization.
+- Documented the remaining environment override compatibility question.
+
+**Logging reliability**
+
+- Identified a readonly variable error during route-guardian initialization.
+- Proposed preserving default and caller-provided logging paths.
+- Added isolated behavioral regression tests.
+
+**NetworkManager gateway discovery**
+
+- Investigated missing IP4.GATEWAY values despite available DHCP router information.
+- Added DHCP router fallback and IPv4 address validation.
+- Tested missing data, multiline responses and pipe-separated output.
+- Recorded successful gateway discovery on both physical WAN connections.
+
+**Route metric preservation**
+
+- Investigated incorrect duplicate-route cleanup during active backup WAN operation.
+- Proposed preserving the route metric appropriate to the active WAN state.
+- Added route locking, failover-lock rechecks and nine mocked regression scenarios.
+- A combined local deployment retained the intended backup route across four consecutive connectivity checks without observed packet loss.
+
+**Validation evidence**
+
+| Contribution | Recorded validation |
+| --- | --- |
+| PR #1 | Local Bats suite passed; 96-test plan; transient systemd reproduction |
+| PR #2 | Local Bats suite passed; 96-test plan; isolated logging behavior tests |
+| PR #3 | Previous branch suite passed 105/105; DHCP fallback mock validation |
+| PR #4 | Nine mocked route-cleanup scenarios passed |
+
+</details>
+
+**Validation scope:** All four PRs remained open drafts at the November 28, 2026 snapshot. Automatic failback, reboot recovery and complete route-concurrency behavior remain unverified. Combined deployment observations do not independently validate individual patches.
+
+**Expected impact:** More reliable local network failover, clearer infrastructure configuration and improved resilience against gateway-discovery and route-management failures.
+
+[**Explore all four upstream proposals**](https://github.com/fidpa/linux-dual-wan-failover/pulls?q=is%3Apr+author%3AChristophKomenda)
+
+</details>
+
+
 ## Background
 
 My professional background spans **UX/UI design, e-commerce, digital marketing and frontend development**, supported by training in business and IT and continued professional development in UX design, frontend technologies and digital product delivery.
@@ -985,6 +1086,7 @@ I enjoy working at the intersection of **design, technology and business outcome
 | **Infrastructure & Open Source** | Linux, Docker, Raspberry Pi, Home Assistant, MQTT, TLS / PKI, Mosquitto, Ethernet / HomePlug, RFC2217, HPGL, REST APIs, Nginx, Cloudflare |
 | **Bluetooth & Hardware Integration** | Bluetooth LE, BlueZ, D-Bus, HCI controller identity, Bluetooth proxies, advertisement filtering, PipeWire |
 | **Observability & Performance Engineering** | Communication diagnostics, MQTT lifecycle management, memory and latency benchmarking, bounded caching, regression coverage, hardware validation |
+| **Network & Infrastructure Engineering** | Dual-WAN failover, NetworkManager, DHCP gateway discovery, IPv4 route metrics, systemd EnvironmentFile, Bash, Bats, ShellCheck |
 | **CI/CD & Release Engineering** | GitHub Actions, native multi-architecture Docker builds, versioned upstream imports, SHA-256 integrity checks, reviewable release automation |
 | **Developer Experience & Collaboration** | Technical documentation, installation UX, upstream contributions, maintainer feedback, community-driven development |
 
@@ -1033,3 +1135,5 @@ If you're building a product, improving a digital customer journey or working on
 | Pironman integration and hardware testing | [Join the community discussion](https://github.com/ChristophKomenda/pironman5-homeassistant-container/discussions) |
 
 *Design thoughtfully. Build practically. Improve continuously.*
+
+<!-- engineering-update-2026-11-28 -->
